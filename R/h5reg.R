@@ -49,8 +49,7 @@
 #' res
 #' res2
 #' }
-#' @family antsreg
-
+#' @family h5reg
 h5reg <- function(..., swap=NULL) {
   x <- path.expand(as.character(list(...)))
   if(!all(file.exists(x))) stop("... must point to files on disk!")
@@ -61,18 +60,35 @@ h5reg <- function(..., swap=NULL) {
   x
 }
 
+#' Map points using h5 registrations
+#'
+#' @details See \code{\link{h5reg}} for details of the ordering of
+#'   registrations.
+#'
+#' @param reg A \code{\link{h5reg}} object specifying one or more h5
+#'   registrations.
+#' @param points An Nx3 matrix of 3D points to transform
+#' @param ... Additional arguments passed to java tranform tool (currently
+#'   ignored).
+#' @export
+#' @return An Nx3 matrix of transformed points
+#' @importFrom nat xformpoints
+#' @family h5reg
 xformpoints.h5reg <- function(reg, points, ...) {
-    if(ncol(points)!=3L)
-      stop("xformpoints.h5reg only supports 3 dimensions!")
+  if (ncol(points) != 3L)
+    stop("xformpoints.h5reg only supports 3 dimensions!")
 
-    swapped=attr(reg, 'swap')
-    if(is.null(swapped)) swapped=rep(TRUE, length(reg))
+  # this should happen when we make the h5reg object of course
+  swapped = attr(reg, 'swap')
+  if (is.null(swapped))
+    swapped = rep(TRUE, length(reg))
 
-    saalfeld_xform(points, reg, inverse = !swapped)
+  saalfeld_xform(points, reg, inverse = !swapped)
 }
 
 # Saalfeld/Bogovic HDF5 format transforms are defined with
 # forward being the direction that transforms
+#' @importFrom utils write.table read.table
 saalfeld_xform <- function(points, reg, inverse=FALSE) {
   pointsfile=tempfile(fileext=".txt")
   on.exit(unlink(pointsfile))
@@ -81,7 +97,7 @@ saalfeld_xform <- function(points, reg, inverse=FALSE) {
   outfile=tempfile()
   on.exit(unlink(outfile), add=TRUE)
 
-  jarfile <- system.file("transform-helpers-0.0.1-SNAPSHOT-shaded.jar", package = 'nat.ants')
+  jarfile <- system.file("transform-helpers-0.0.1-SNAPSHOT-shaded.jar", package = 'nat.h5reg')
 
   args = c('-jar',
            jarfile,
@@ -107,8 +123,9 @@ saalfeld_xform <- function(points, reg, inverse=FALSE) {
 }
 
 # read information about transforms
-
 read.h5reg.info <- function(x, read.data=FALSE) {
+  if(!requireNamespace("hdf5r", quietly = TRUE))
+    stop("Please install the suggested hdf5r package to use read.h5reg.info!")
   h5=hdf5r::H5File$new(x, mode = 'r')
   myinfo <- function(field) {
     res=list()
@@ -121,19 +138,29 @@ read.h5reg.info <- function(x, read.data=FALSE) {
   list(dfield=myinfo(h5[['dfield']]), invdfield=myinfo(h5[['invdfield']]))
 }
 
+is.h5reg <- function(f = NULL, bytes = NULL) {
+  ishdf5 = is.hdf5(f, bytes)
+  if (!ishdf5)
+    return(FALSE)
+  if (is.null(f))
+    stop("You must supply the filename as well as some bytes!")
+  res = try(read.h5reg.info(f), silent = TRUE)
+  ! inherits(res, 'try-error')
+}
+
 is.hdf5 <- function(f = NULL, bytes = NULL) {
   # in theory hdf5r::is_hdf5 should do the trick, but this interface
   # allows us to check bytes which will be useful
 
   hdf5.magic = as.raw(c(0x89, 0x48, 0x44, 0x46, 0x0d, 0x0a, 0x1a, 0x0a))
 
-  magic = try({
-    f <- file(f, 'rb')
-    magic <- readBin(f, what = raw(), n = length(hdf5.magic))
-    close(f)
-    magic
-  },
-  silent = TRUE)
+  magic = if (!is.null(bytes))
+    bytes
+  else
+    try({
+      readBin(f, what = raw(), n = length(hdf5.magic))
+    }, silent = TRUE
+    )
 
   isTRUE(
     !inherits(magic, 'try-error') &&

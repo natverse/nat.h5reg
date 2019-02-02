@@ -62,4 +62,7 @@ res
 res2
 }
 }
-\concept{antsreg}
+\seealso{
+Other h5reg: \code{\link{xformpoints.h5reg}}
+}
+\concept{h5reg}

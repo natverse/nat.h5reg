@@ -11,6 +11,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Suggests: 
-    spelling
+    spelling,
+    hdf5r
 Language: en-GB
 RoxygenNote: 6.1.1
