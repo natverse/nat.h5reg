@@ -2,14 +2,17 @@ Package: nat.h5reg
 Type: Package
 Title: Neuroanatomy Toolbox Support for Saalfeld/Bogovic HDF5 Registration Format
 Version: 0.1.0
-Authors@R: person("Gregory","Jefferis", email="jefferis@gmail.com", 
-    role = c("aut", "cre"), comment = c(ORCID = "0000-0002-0587-9355"))
+Authors@R: c(person("Gregory","Jefferis", email="jefferis@gmail.com", 
+    role = c("aut", "cre"), comment = c(ORCID = "0000-0002-0587-9355")),
+    person("Saalfeld Lab", role=c("cph", "aut"), 
+    comment="for transform-helpers java library"))
 Description: Enables the Neuroanatomy Toolbox (nat) suite to carry out 3D
     coordinate transformation defined by points encoded in the HDF5
     registration format defined by Stephan Saalfeld and John Bogovic.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Imports: nat
 Suggests: 
     spelling,
     hdf5r

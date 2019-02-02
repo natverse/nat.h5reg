@@ -7,7 +7,7 @@
 \method{xformpoints}{h5reg}(reg, points, ...)
 }
 \arguments{
-\item{reg}{A \code{\link{h5reg}} object specifying one or more ANTs
+\item{reg}{A \code{\link{h5reg}} object specifying one or more h5
 registrations.}
 
 \item{points}{An Nx3 matrix of 3D points to transform}
