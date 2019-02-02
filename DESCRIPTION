@@ -7,6 +7,6 @@ Authors@R: person("Gregory","Jefferis", email="jefferis@gmail.com",
 Description: Enables the Neuronanatomy Toolbox (nat) suite to carry out 3D
     coordinate transformation defined by points encoded in the HDF5
     registration format defined by Stephan Saalfeld and John Bogovic.
-License: What license is it under?
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
