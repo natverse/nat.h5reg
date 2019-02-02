@@ -13,3 +13,4 @@ LazyData: true
 Suggests: 
     spelling
 Language: en-GB
+RoxygenNote: 6.1.1
