@@ -1,7 +1,7 @@
 # nat.h5reg
 
 nat.h5reg enables the [Neuroanatomy Toolbox (nat)](https://jefferis.github.io/nat/)
-suite to carry out 3D coordinate transforms of arbitraty objects based on deformation fields
+suite to carry out 3D coordinate transforms of arbitrary objects based on deformation fields
 encoded in the [HDF5 registration format](https://github.com/saalfeldlab/template-building/wiki/Hdf5-Deformation-fields)
 of Stephan Saalfeld and John Bogovic.
 

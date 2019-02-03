@@ -68,7 +68,7 @@ h5reg <- function(..., swap=NULL) {
 #' @param reg A \code{\link{h5reg}} object specifying one or more h5
 #'   registrations.
 #' @param points An Nx3 matrix of 3D points to transform
-#' @param ... Additional arguments passed to java tranform tool (currently
+#' @param ... Additional arguments passed to java transform tool (currently
 #'   ignored).
 #' @export
 #' @return An Nx3 matrix of transformed points

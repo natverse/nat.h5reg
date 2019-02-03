@@ -12,7 +12,7 @@ registrations.}
 
 \item{points}{An Nx3 matrix of 3D points to transform}
 
-\item{...}{Additional arguments passed to java tranform tool (currently
+\item{...}{Additional arguments passed to java transform tool (currently
 ignored).}
 }
 \value{
