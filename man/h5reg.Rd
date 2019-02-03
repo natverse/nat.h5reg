@@ -42,24 +42,30 @@ h5 registrations contains both forward and inverse deformation
 }
 \examples{
 \dontrun{
-# define forward and inverse registrations
-inv=antsreg("JRC2018F_FAFB/JRC2018F_FAFB1InverseWarp_down.nii.gz",
-    "JRC2018F_FAFB/JRC2018F_FAFB0GenericAffine.mat", swap=c(FALSE,TRUE))
-fwd=antsreg("JRC2018F_FAFB/JRC2018F_FAFB0GenericAffine.mat",
-    "JRC2018F_FAFB/JRC2018F_FAFB1Warp_down.nii.gz", swap=c(TRUE,TRUE))
+# We will use sample Kenyon Cells in FCWB (FlyCircuit) space
+library(nat)
+head(kcs20)
 
-# position of DA1 glomerulus in FAFB
-da1glomr.fafb <- cbind(429316, 217924, 42960)
-da1glomr.fafbum=da1glomr.fafb/1e3
-# map position from FAFB to JRC2018
-res <- xform(da1glomr.fafbum, inv)
-# and back again
-res2 <- xform(res, fwd)
+# swap=FALSE, so this will map points onto JRC2018F
+kcs20.jrc2018 = xform(kcs20,
+                      reg = h5reg('JRC2018F_FCWB_transform_quant16.h5', swap=FALSE)
+)
 
-# print out locations
-da1glomr.fafbum
-res
-res2
+# map back again (round trip test)
+kcs20.rt = xform(
+  kcs20.jrc2018,
+  reg = h5reg('JRC2018F_FCWB_transform_quant16.h5')
+)
+
+plot3d(kcs20.jrc2018, col='green')
+
+clear3d()
+plot3d(kcs20, col='red')
+plot3d(kcs20.rt, col='blue')
+
+diffs=xyzmatrix(kcs20)-xyzmatrix(kcs20.rt)
+str(diffs)
+plot(as.data.frame(diffs))
 }
 }
 \seealso{

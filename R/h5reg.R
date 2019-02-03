@@ -30,24 +30,30 @@
 #' @return A character vector with additional class \code{antsreg}.
 #' @examples
 #' \dontrun{
-#' # define forward and inverse registrations
-#' inv=antsreg("JRC2018F_FAFB/JRC2018F_FAFB1InverseWarp_down.nii.gz",
-#'     "JRC2018F_FAFB/JRC2018F_FAFB0GenericAffine.mat", swap=c(FALSE,TRUE))
-#' fwd=antsreg("JRC2018F_FAFB/JRC2018F_FAFB0GenericAffine.mat",
-#'     "JRC2018F_FAFB/JRC2018F_FAFB1Warp_down.nii.gz", swap=c(TRUE,TRUE))
+#' # We will use sample Kenyon Cells in FCWB (FlyCircuit) space
+#' library(nat)
+#' head(kcs20)
 #'
-#' # position of DA1 glomerulus in FAFB
-#' da1glomr.fafb <- cbind(429316, 217924, 42960)
-#' da1glomr.fafbum=da1glomr.fafb/1e3
-#' # map position from FAFB to JRC2018
-#' res <- xform(da1glomr.fafbum, inv)
-#' # and back again
-#' res2 <- xform(res, fwd)
+#' # swap=FALSE, so this will map points onto JRC2018F
+#' kcs20.jrc2018 = xform(kcs20,
+#'                       reg = h5reg('JRC2018F_FCWB_transform_quant16.h5', swap=FALSE)
+#' )
 #'
-#' # print out locations
-#' da1glomr.fafbum
-#' res
-#' res2
+#' # map back again (round trip test)
+#' kcs20.rt = xform(
+#'   kcs20.jrc2018,
+#'   reg = h5reg('JRC2018F_FCWB_transform_quant16.h5')
+#' )
+#'
+#' plot3d(kcs20.jrc2018, col='green')
+#'
+#' clear3d()
+#' plot3d(kcs20, col='red')
+#' plot3d(kcs20.rt, col='blue')
+#'
+#' diffs=xyzmatrix(kcs20)-xyzmatrix(kcs20.rt)
+#' str(diffs)
+#' plot(as.data.frame(diffs))
 #' }
 #' @family h5reg
 h5reg <- function(..., swap=NULL) {
@@ -74,6 +80,10 @@ h5reg <- function(..., swap=NULL) {
 #' @return An Nx3 matrix of transformed points
 #' @importFrom nat xformpoints
 #' @family h5reg
+#' @seealso \code{\link{h5reg}} for an example of point transformations using h5
+#'   registrations and \code{\link{xform}} and \code{\link{xformpoints}} for
+#'   detail of how transformations are handled within the neuroanatomy toolbox
+#'   suite.
 xformpoints.h5reg <- function(reg, points, ...) {
   if (ncol(points) != 3L)
     stop("xformpoints.h5reg only supports 3 dimensions!")

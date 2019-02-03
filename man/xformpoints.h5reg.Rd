@@ -26,6 +26,11 @@ See \code{\link{h5reg}} for details of the ordering of
   registrations.
 }
 \seealso{
+\code{\link{h5reg}} for an example of point transformations using h5
+  registrations and \code{\link{xform}} and \code{\link{xformpoints}} for
+  detail of how transformations are handled within the neuroanatomy toolbox
+  suite.
+
 Other h5reg: \code{\link{h5reg}}
 }
 \concept{h5reg}
