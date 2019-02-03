@@ -1,5 +1,5 @@
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-
+[![Travis build status](https://travis-ci.org/jefferis/nat.h5reg.svg?branch=master)](https://travis-ci.org/jefferis/nat.h5reg)
 # nat.h5reg
 
 nat.h5reg enables the [Neuroanatomy Toolbox (nat)](https://jefferis.github.io/nat/)
