@@ -142,6 +142,7 @@ read.h5reg.info <- function(x, read.data=FALSE) {
     rawres=field$get_space()$get_simple_extent_dims()
     res$ndim=rawres$rank
     res$dims=rawres$dims
+    res$nbytes=field$get_storage_size()
     res=c(res, hdf5r::h5attributes(field))
   }
 
