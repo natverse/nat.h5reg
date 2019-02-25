@@ -93,13 +93,13 @@ xformpoints.h5reg <- function(reg, points, ...) {
   if (is.null(swapped))
     swapped = rep(TRUE, length(reg))
 
-  saalfeld_xform(points, reg, inverse = !swapped)
+  saalfeld_xform(points, reg, inverse = !swapped, ...)
 }
 
 # Saalfeld/Bogovic HDF5 format transforms are defined with
 # forward being the direction that transforms
 #' @importFrom utils write.table read.table
-saalfeld_xform <- function(points, reg, inverse=FALSE) {
+saalfeld_xform <- function(points, reg, inverse=FALSE, level=NA, ...) {
   pointsfile=tempfile(fileext=".txt")
   on.exit(unlink(pointsfile))
   write.table(points, file=pointsfile, row.names=FALSE, col.names=FALSE)
@@ -115,6 +115,7 @@ saalfeld_xform <- function(points, reg, inverse=FALSE) {
            reg,
            "--coordinates",
            pointsfile)
+  if(is.finite(level)) args=c(args, "--level", level)
 
   if(inverse) args=c(args, "--inverse")
   rval = system2(
