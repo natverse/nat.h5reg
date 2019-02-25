@@ -144,8 +144,22 @@ read.h5reg.info <- function(x, read.data=FALSE) {
     res$dims=rawres$dims
     res=c(res, hdf5r::h5attributes(field))
   }
-  res=list()
-  list(dfield=myinfo(h5[['dfield']]), invdfield=myinfo(h5[['invdfield']]))
+
+  myinfo2 <- function(x) {
+    res <- list(dfield=myinfo(x[['dfield']]), invdfield=myinfo(x[['invdfield']]))
+    res
+  }
+  h5_listing <- h5$ls()
+
+  if(all(c("dfield","invdfield") %in% h5_listing$name)) {
+    # single level h5
+    res <- myinfo2(h5)
+    return(res)
+  }
+
+  h5_listing$int <- suppressWarnings(as.integer(h5_listing$name))
+  good_rows <- is.finite(h5_listing$int) & h5_listing$int %in% 0:20 & h5_listing$obj_type=='H5I_GROUP'
+  sapply(h5_listing$name[good_rows], function(n) myinfo2(h5[[n]]), simplify = F)
 }
 
 is.h5reg <- function(f = NULL, bytes = NULL) {
