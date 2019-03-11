@@ -115,6 +115,12 @@ saalfeld_xform <- function(points, reg, inverse=FALSE, level=NA, stderr=FALSE, .
            reg,
            "--coordinates",
            pointsfile)
+  #
+  if(is.na(level)) {
+    level <- default_h5_level(reg)
+    if(is.finite(level))
+      warning("using default registration level: ", level, " for file: ", reg)
+  }
   if(is.finite(level)) args=c(args, "--level", level)
 
   if(inverse) args=c(args, "--inverse")
@@ -196,4 +202,18 @@ is.hdf5 <- function(f = NULL, bytes = NULL) {
       length(magic) == length(hdf5.magic) &&
       all(magic == hdf5.magic)
   )
+}
+
+default_h5_level <- function(x) {
+  i <- read.h5reg.info(x)
+  if('dfield' %in% names(i)) {
+    # we have a file that is not
+    NA_integer_
+  } else {
+    ints=suppressWarnings(as.integer(names(i)))
+    levels=ints[is.finite(ints)]
+    if(!length(levels))
+      stop("Could not find any valid registration levels in file: ", x)
+    min(levels)
+  }
 }
