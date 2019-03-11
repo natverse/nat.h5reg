@@ -99,7 +99,7 @@ xformpoints.h5reg <- function(reg, points, ...) {
 # Saalfeld/Bogovic HDF5 format transforms are defined with
 # forward being the direction that transforms
 #' @importFrom utils write.table read.table
-saalfeld_xform <- function(points, reg, inverse=FALSE, level=NA, ...) {
+saalfeld_xform <- function(points, reg, inverse=FALSE, level=NA, stderr=FALSE, ...) {
   pointsfile=tempfile(fileext=".txt")
   on.exit(unlink(pointsfile))
   write.table(points, file=pointsfile, row.names=FALSE, col.names=FALSE)
@@ -122,7 +122,7 @@ saalfeld_xform <- function(points, reg, inverse=FALSE, level=NA, ...) {
     "java",
     args=args,
     stdout = outfile,
-    stderr = FALSE
+    stderr = stderr
   )
 
   if(rval!=0) stop("Error running saalfeld xform!")
