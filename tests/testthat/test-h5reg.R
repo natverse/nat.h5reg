@@ -47,16 +47,17 @@ test_that("xform works", {
 })
 
 test_that("h5 basics", {
+  skip_if_not_installed('hdf5r')
   sample.file <- function(x) system.file(file.path('samples', x), package = 'nat.h5reg')
 
-  expect_true(nat.h5reg:::is.hdf5(sample.file('simple.h5')))
-  expect_true(nat.h5reg:::is.hdf5(sample.file('simpledummyh5reg.h5')))
-  expect_false(nat.h5reg:::is.hdf5(sample.file('bad.h5')))
+  expect_true(is.hdf5(sample.file('simple.h5')))
+  expect_true(is.hdf5(sample.file('simpledummyh5reg.h5')))
+  expect_false(is.hdf5(sample.file('bad.h5')))
 
-  expect_false(nat.h5reg:::is.h5reg(sample.file('simple.h5')))
-  expect_true(nat.h5reg:::is.h5reg(sample.file('simpledummyh5reg.h5')))
+  expect_false(is.h5reg(sample.file('simple.h5')))
+  expect_true(is.h5reg(sample.file('simpledummyh5reg.h5')))
 
-  expect_known_value(nat.h5reg:::read.h5reg.info(sample.file('complexdummyh5reg.h5')),
+  expect_known_value(read.h5reg.info(sample.file('complexdummyh5reg.h5')),
                      'testdata/complexdummyh5reg.info.rds')
 })
 
