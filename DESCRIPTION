@@ -15,7 +15,8 @@ LazyData: true
 Imports: nat
 Suggests: 
     spelling,
-    hdf5r
+    hdf5r,
+    testthat
 Language: en-GB
 RoxygenNote: 6.1.1
 URL: https://github.com/jefferis/nat.h5reg
