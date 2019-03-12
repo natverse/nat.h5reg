@@ -84,6 +84,17 @@ h5reg <- function(..., swap=NULL) {
 #'   registrations and \code{\link{xform}} and \code{\link{xformpoints}} for
 #'   detail of how transformations are handled within the neuroanatomy toolbox
 #'   suite.
+#' @examples
+#' \dontrun{
+#' # basic usage
+#' xform(cbind(50,50,30), h5reg('JRC2018F_FAFB.h5'))
+#' xform(cbind(50,50,30), h5reg('JRC2018F_FAFB.h5', swap=TRUE))
+#' # specify a particular level for registration containing more than 1 level
+#' # of detail
+#' xform(cbind(50,50,30), h5reg('JRC2018F_FAFB.h5'), level=0)
+#' # print more detailed error messages when trying to debug
+#' xform(cbind(50,50,30), h5reg('JRC2018F_FAFB.h5'), level=0, stderr="")
+#' }
 xformpoints.h5reg <- function(reg, points, ...) {
   if (ncol(points) != 3L)
     stop("xformpoints.h5reg only supports 3 dimensions!")

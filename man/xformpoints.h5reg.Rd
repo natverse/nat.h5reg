@@ -25,6 +25,18 @@ Map points using h5 registrations
 See \code{\link{h5reg}} for details of the ordering of
   registrations.
 }
+\examples{
+\dontrun{
+# basic usage
+xform(cbind(50,50,30), h5reg('JRC2018F_FAFB.h5'))
+xform(cbind(50,50,30), h5reg('JRC2018F_FAFB.h5', swap=TRUE))
+# specify a particular level for registration containing more than 1 level
+# of detail
+xform(cbind(50,50,30), h5reg('JRC2018F_FAFB.h5'), level=0)
+# print more detailed error messages when trying to debug
+xform(cbind(50,50,30), h5reg('JRC2018F_FAFB.h5'), level=0, stderr="")
+}
+}
 \seealso{
 \code{\link{h5reg}} for an example of point transformations using h5
   registrations and \code{\link{xform}} and \code{\link{xformpoints}} for
