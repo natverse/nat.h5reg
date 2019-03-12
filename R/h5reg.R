@@ -181,6 +181,8 @@ read.h5reg.info <- function(x, read.data=FALSE) {
 
   h5_listing$int <- suppressWarnings(as.integer(h5_listing$name))
   good_rows <- is.finite(h5_listing$int) & h5_listing$int %in% 0:20 & h5_listing$obj_type=='H5I_GROUP'
+  if(!any(good_rows))
+    stop("This does not look like an h5reg file!")
   sapply(h5_listing$name[good_rows], function(n) myinfo2(h5[[n]]), simplify = F)
 }
 
