@@ -69,6 +69,8 @@ plot(as.data.frame(diffs))
 }
 }
 \seealso{
+\code{\link{h5reg-utils}}
+
 Other h5reg: \code{\link{xformpoints.h5reg}}
 }
 \concept{h5reg}

@@ -28,6 +28,7 @@
 #'   all registrations.
 #' @export
 #' @return A character vector with additional class \code{antsreg}.
+#' @seealso \code{\link{h5reg-utils}}
 #' @examples
 #' \dontrun{
 #' # We will use sample Kenyon Cells in FCWB (FlyCircuit) space
@@ -82,7 +83,7 @@ h5reg <- function(..., swap=NULL) {
 #' @family h5reg
 #' @seealso \code{\link{h5reg}} for an example of point transformations using h5
 #'   registrations and \code{\link{xform}} and \code{\link{xformpoints}} for
-#'   detail of how transformations are handled within the neuroanatomy toolbox
+#'   details of how transformations are handled within the neuroanatomy toolbox
 #'   suite.
 #' @examples
 #' \dontrun{
@@ -150,8 +151,25 @@ saalfeld_xform <- function(points, reg, inverse=FALSE, level=NA, stderr=FALSE, .
   pointst
 }
 
-# read information about transforms
-read.h5reg.info <- function(x, read.data=FALSE) {
+
+#' Read information about h5reg transformations from file
+#'
+#' @param x path to a \code{.h5} file
+#' @param ... Currently ignored
+#'
+#' @return a named list describing the contents of an \code{h5reg} file.
+#' @export
+#'
+#' @name h5reg-utils
+#' @aliases read.h5reg.info
+#' @seealso \code{\link{h5reg}}
+#' @examples
+#' \donttest{
+#' h5f <- system.file('samples/complexdummyh5reg.h5', package = 'nat.h5reg')
+#' read.h5reg.info(h5f)
+#' is.h5reg(h5f)
+#' }
+read.h5reg.info <- function(x, ...) {
   if(!is.hdf5(x))
     stop("This is not an HDF5 format file!")
   if(!requireNamespace("hdf5r", quietly = TRUE))
@@ -186,6 +204,21 @@ read.h5reg.info <- function(x, read.data=FALSE) {
   sapply(h5_listing$name[good_rows], function(n) myinfo2(h5[[n]]), simplify = F)
 }
 
+
+#' @description \code{is.h5reg} checks if a file (or bytes in memory) looks like
+#'   \code{h5reg} file.
+#'
+#' @param f Path to a file on disk
+#' @param bytes A set of bytes that are at least as big as the HDF5 magic value.
+#' @details if \code{bytes} is passed a raw byte array, then \code{is.h5reg} can
+#'   do a very quick check to ensure that it is actually an HDF5 file, before
+#'   inspect the contents of the file itself in more detail.
+#'
+#' @return Logical indicating whether the file is an HDF5 encoded registration
+#'   file ('code{h5reg})
+#' @export
+#'
+#' @rdname h5reg-utils
 is.h5reg <- function(f = NULL, bytes = NULL) {
   ishdf5 = is.hdf5(f, bytes)
   if (!ishdf5)

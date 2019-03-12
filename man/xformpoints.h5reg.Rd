@@ -40,7 +40,7 @@ xform(cbind(50,50,30), h5reg('JRC2018F_FAFB.h5'), level=0, stderr="")
 \seealso{
 \code{\link{h5reg}} for an example of point transformations using h5
   registrations and \code{\link{xform}} and \code{\link{xformpoints}} for
-  detail of how transformations are handled within the neuroanatomy toolbox
+  details of how transformations are handled within the neuroanatomy toolbox
   suite.
 
 Other h5reg: \code{\link{h5reg}}
