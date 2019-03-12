@@ -45,3 +45,18 @@ test_that("xform works", {
   # round trip test - not exact because of quantisation
   expect_equivalent(test.pts.rt, test.pts, tolerance=1e-4)
 })
+
+test_that("h5 basics", {
+  sample.file <- function(x) system.file(file.path('samples', x), package = 'nat.h5reg')
+
+  expect_true(nat.h5reg:::is.hdf5(sample.file('simple.h5')))
+  expect_true(nat.h5reg:::is.hdf5(sample.file('simpledummyh5reg.h5')))
+  expect_false(nat.h5reg:::is.hdf5(sample.file('bad.h5')))
+
+  expect_false(nat.h5reg:::is.h5reg(sample.file('simple.h5')))
+  expect_true(nat.h5reg:::is.h5reg(sample.file('simpledummyh5reg.h5')))
+
+  expect_known_value(nat.h5reg:::read.h5reg.info(sample.file('complexdummyh5reg.h5')),
+                     'testdata/complexdummyh5reg.info.rds')
+})
+
