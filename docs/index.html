@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">nat.h5reg</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -93,13 +93,13 @@
 
 <span class="co"># swap=FALSE, so this will map points onto JRC2018F </span>
 kcs20.jrc2018 =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/nat/topics/xform">xform</a></span>(kcs20, 
-  <span class="dt">reg =</span> <span class="kw">h5reg</span>(<span class="st">'JRC2018F_FCWB_transform_quant16.h5'</span>, <span class="dt">swap=</span><span class="ot">FALSE</span>)
+  <span class="dt">reg =</span> <span class="kw"><a href="reference/h5reg.html">h5reg</a></span>(<span class="st">'JRC2018F_FCWB_transform_quant16.h5'</span>, <span class="dt">swap=</span><span class="ot">FALSE</span>)
 )
 
 <span class="co"># map back again (round trip test)</span>
 kcs20.rt =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/nat/topics/xform">xform</a></span>(
   kcs20.jrc2018,
-  <span class="dt">reg =</span> <span class="kw">h5reg</span>(<span class="st">'JRC2018F_FCWB_transform_quant16.h5'</span>)
+  <span class="dt">reg =</span> <span class="kw"><a href="reference/h5reg.html">h5reg</a></span>(<span class="st">'JRC2018F_FCWB_transform_quant16.h5'</span>)
 )
 
 <span class="kw"><a href="https://www.rdocumentation.org/packages/nat/topics/plot3d">plot3d</a></span>(kcs20.jrc2018, <span class="dt">col=</span><span class="st">'green'</span>)
@@ -151,6 +151,7 @@ diffs=<span class="kw"><a href="https://www.rdocumentation.org/packages/nat/topi
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="lifecycle"></a></li>
+<li><a href="https://travis-ci.org/jefferis/nat.h5reg"><img src="https://travis-ci.org/jefferis/nat.h5reg.svg?branch=master" alt="Travis build status"></a></li>
 </ul>
 </div>
 </div>
