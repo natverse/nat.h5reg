@@ -47,7 +47,6 @@ test_that("xform works", {
 })
 
 test_that("h5 basics", {
-  skip_if_not_installed('hdf5r')
   sample.file <- function(x) system.file(file.path('samples', x), package = 'nat.h5reg')
 
   expect_true(is.hdf5(sample.file('simple.h5')))

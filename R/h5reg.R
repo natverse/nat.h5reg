@@ -172,8 +172,6 @@ saalfeld_xform <- function(points, reg, inverse=FALSE, level=NA, stderr=FALSE, .
 read.h5reg.info <- function(x, ...) {
   if(!is.hdf5(x))
     stop("This is not an HDF5 format file!")
-  if(!requireNamespace("hdf5r", quietly = TRUE))
-    stop("Please install the suggested hdf5r package to use read.h5reg.info!")
   h5=hdf5r::H5File$new(x, mode = 'r')
   on.exit(h5$close_all())
   myinfo <- function(field) {
