@@ -122,11 +122,11 @@ saalfeld_xform <- function(points, reg, inverse=FALSE, level=NA, stderr=FALSE, .
   jarfile <- system.file("java/transform-helpers-0.0.1-SNAPSHOT-shaded.jar", package = 'nat.h5reg')
 
   args = c('-jar',
-           jarfile,
+           shQuote(jarfile),
            "--transform",
-           reg,
+           shQuote(reg),
            "--coordinates",
-           pointsfile)
+           shQuote(pointsfile))
   #
   if(is.na(level)) {
     level <- default_h5_level(reg)
