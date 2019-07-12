@@ -12,6 +12,7 @@ Description: Enables the Neuroanatomy Toolbox (nat) suite to carry out 3D
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Depends: R (>= 3.5.0)
 Imports: nat,
     hdf5r
 Suggests: 
