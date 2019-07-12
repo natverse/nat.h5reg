@@ -119,7 +119,7 @@ saalfeld_xform <- function(points, reg, inverse=FALSE, level=NA, stderr=FALSE, .
   outfile=tempfile()
   on.exit(unlink(outfile), add=TRUE)
 
-  jarfile <- system.file("java/transform-helpers-0.0.1-SNAPSHOT-shaded.jar", package = 'nat.h5reg')
+  jarfile <- system.file("java/transform-helpers-0.0.1-shaded.jar", package = 'nat.h5reg')
 
   args = c('-jar',
            shQuote(jarfile),
