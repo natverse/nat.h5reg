@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">nat.h5reg</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -79,38 +79,38 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install the development version of nat.h5reg from GitHub with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">'jefferis/nat.h5reg'</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">'jefferis/nat.h5reg'</span>)</a></code></pre></div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <p>A round trip test using a bridging registration between two template brains.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(nat.h5reg)
-
-<span class="co"># We will use sample Kenyon Cells in FCWB (FlyCircuit) space</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(nat)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/nat/topics/neuronlist-dataframe-methods">head</a></span>(kcs20)
-
-<span class="co"># swap=FALSE, so this will map points onto JRC2018F </span>
-kcs20.jrc2018 =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/nat/topics/xform">xform</a></span>(kcs20, 
-  <span class="dt">reg =</span> <span class="kw"><a href="reference/h5reg.html">h5reg</a></span>(<span class="st">'JRC2018F_FCWB_transform_quant16.h5'</span>, <span class="dt">swap=</span><span class="ot">FALSE</span>)
-)
-
-<span class="co"># map back again (round trip test)</span>
-kcs20.rt =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/nat/topics/xform">xform</a></span>(
-  kcs20.jrc2018,
-  <span class="dt">reg =</span> <span class="kw"><a href="reference/h5reg.html">h5reg</a></span>(<span class="st">'JRC2018F_FCWB_transform_quant16.h5'</span>)
-)
-
-<span class="kw"><a href="https://www.rdocumentation.org/packages/nat/topics/plot3d">plot3d</a></span>(kcs20.jrc2018, <span class="dt">col=</span><span class="st">'green'</span>)
-
-<span class="kw">clear3d</span>()
-<span class="kw"><a href="https://www.rdocumentation.org/packages/nat/topics/plot3d">plot3d</a></span>(kcs20, <span class="dt">col=</span><span class="st">'red'</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/nat/topics/plot3d">plot3d</a></span>(kcs20.rt, <span class="dt">col=</span><span class="st">'blue'</span>)
-
-diffs=<span class="kw"><a href="https://www.rdocumentation.org/packages/nat/topics/xyzmatrix">xyzmatrix</a></span>(kcs20)<span class="op">-</span><span class="kw"><a href="https://www.rdocumentation.org/packages/nat/topics/xyzmatrix">xyzmatrix</a></span>(kcs20.rt)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(diffs)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/as.data.frame">as.data.frame</a></span>(diffs))</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(nat.h5reg)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co"># We will use sample Kenyon Cells in FCWB (FlyCircuit) space</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(nat)</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/nat/topics/neuronlist-dataframe-methods">head</a></span>(kcs20)</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co"># swap=FALSE, so this will map points onto JRC2018F </span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">kcs20.jrc2018 =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/nat/topics/xform">xform</a></span>(kcs20, </a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">  <span class="dt">reg =</span> <span class="kw"><a href="reference/h5reg.html">h5reg</a></span>(<span class="st">'JRC2018F_FCWB_transform_quant16.h5'</span>, <span class="dt">swap=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">)</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co"># map back again (round trip test)</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">kcs20.rt =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/nat/topics/xform">xform</a></span>(</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">  kcs20.jrc2018,</a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">  <span class="dt">reg =</span> <span class="kw"><a href="reference/h5reg.html">h5reg</a></span>(<span class="st">'JRC2018F_FCWB_transform_quant16.h5'</span>)</a>
+<a class="sourceLine" id="cb2-16" data-line-number="16">)</a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="kw"><a href="https://www.rdocumentation.org/packages/nat/topics/plot3d">plot3d</a></span>(kcs20.jrc2018, <span class="dt">col=</span><span class="st">'green'</span>)</a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="kw">clear3d</span>()</a>
+<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="kw"><a href="https://www.rdocumentation.org/packages/nat/topics/plot3d">plot3d</a></span>(kcs20, <span class="dt">col=</span><span class="st">'red'</span>)</a>
+<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="kw"><a href="https://www.rdocumentation.org/packages/nat/topics/plot3d">plot3d</a></span>(kcs20.rt, <span class="dt">col=</span><span class="st">'blue'</span>)</a>
+<a class="sourceLine" id="cb2-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb2-24" data-line-number="24">diffs=<span class="kw"><a href="https://www.rdocumentation.org/packages/nat/topics/xyzmatrix">xyzmatrix</a></span>(kcs20)<span class="op">-</span><span class="kw"><a href="https://www.rdocumentation.org/packages/nat/topics/xyzmatrix">xyzmatrix</a></span>(kcs20.rt)</a>
+<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(diffs)</a>
+<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/as.data.frame">as.data.frame</a></span>(diffs))</a></code></pre></div>
 </div>
 <div id="acknowledgements" class="section level2">
 <h2 class="hasAnchor">
