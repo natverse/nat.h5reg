@@ -1,3 +1,31 @@
+navbar:
+  structure:
+    left:
+    - home
+    - intro
+    - reference
+    - articles
+    - tutorials
+    - news
+    right:
+    - natverse
+    - github
+  components:
+    home:
+      icon: fa-home fa-lg
+      href: index.html
+    reference:
+      text: Reference
+      href: reference/index.html
+    news:
+      text: Changelog
+      href: news/index.html
+    natverse:
+      text: natverse
+      href: https://natverse.github.io
+    github:
+      icon: fa-github fa-lg
+      href: https://github.com/natverse/nat.h5reg
 reference:
 - title: Package Overview
   desc: ~
