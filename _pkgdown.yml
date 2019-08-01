@@ -1,0 +1,11 @@
+reference:
+- title: Package Overview
+  desc: ~
+  contents:
+  - '`nat.h5reg-package`'
+- title: All functions
+  desc: ~
+  contents:
+  - '`h5reg-utils`'
+  - '`h5reg`'
+  - '`xformpoints.h5reg`'
