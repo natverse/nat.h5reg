@@ -27,7 +27,7 @@
 #'   inverse. The default implied by \code{swap=NULL} is \code{swap=TRUE} for
 #'   all registrations.
 #' @export
-#' @return A character vector with additional class \code{antsreg}.
+#' @return A character vector with additional class \code{h5reg}.
 #' @seealso \code{\link{h5reg-utils}}
 #' @examples
 #' \dontrun{

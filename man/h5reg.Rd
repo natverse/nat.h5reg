@@ -15,7 +15,7 @@ inverse. The default implied by \code{swap=NULL} is \code{swap=TRUE} for
 all registrations.}
 }
 \value{
-A character vector with additional class \code{antsreg}.
+A character vector with additional class \code{h5reg}.
 }
 \description{
 Wrapping paths to one or more h5 registration files on disk in
