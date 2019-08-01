@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • nat.h5reg</title>
+<title>nat.h5reg: Neuroanatomy Toolbox Support for Saalfeld/Bogovic HDF5 Registration Format — nat.h5reg-package • nat.h5reg</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,7 +30,12 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="nat.h5reg: Neuroanatomy Toolbox Support for Saalfeld/Bogovic HDF5 Registration Format — nat.h5reg-package" />
+
+<meta property="og:description" content="Enables the Neuroanatomy Toolbox (nat) suite to carry out 3D
+    coordinate transformation defined by points encoded in the HDF5
+    registration format defined by Stephan Saalfeld and John Bogovic." />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -47,7 +52,7 @@
   </head>
 
   <body>
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -99,60 +104,65 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/natverse/nat.h5reg/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>nat.h5reg: Neuroanatomy Toolbox Support for Saalfeld/Bogovic HDF5 Registration Format</h1>
+    <small class="dont-index">Source: <a href='https://github.com/natverse/nat.h5reg/blob/master/R/nat.h5reg-package.R'><code>R/nat.h5reg-package.R</code></a></small>
+    <div class="hidden name"><code>nat.h5reg-package.Rd</code></div>
     </div>
 
-    <div id="nat-h5reg-0-3-2" class="section level1">
-<h1 class="page-header">
-<a href="#nat-h5reg-0-3-2" class="anchor"></a>nat.h5reg 0.3.2</h1>
-<ul>
-<li>add package overview documentation</li>
-<li>switch to natverse github organisation</li>
-</ul>
-</div>
-    <div id="nat-h5reg-0-3-1" class="section level1">
-<h1 class="page-header">
-<a href="#nat-h5reg-0-3-1" class="anchor"></a>nat.h5reg 0.3.1</h1>
-<ul>
-<li>Make hdf5r package an essential dependency (i.e. Import) because we need to look inside h5 files to run the transforms (<a href='https://github.com/natverse/nat.h5reg/issues/5'>#5</a>)</li>
-<li>quote all paths to java command line tool (in case e.g. path to transform file has a space in it) (<a href='https://github.com/natverse/nat.h5reg/issues/4'>#4</a>)</li>
-<li>update to v0.0.1 release of java command line tool. This changes the behaviour of out of range points to affine + nearest non-rigid displacement (see <a href="https://github.com/saalfeldlab/transform-helpers/issues/3" class="uri">https://github.com/saalfeldlab/transform-helpers/issues/3</a>)</li>
-<li>depend on R &gt;= 3.5.0 for rds test files</li>
-</ul>
-</div>
-    <div id="nat-h5reg-0-3-0" class="section level1">
-<h1 class="page-header">
-<a href="#nat-h5reg-0-3-0" class="anchor"></a>nat.h5reg 0.3.0</h1>
-<ul>
-<li>fix a bug in inverse transforms by upgrading transform helper jar file</li>
-<li>export <code><a href="../reference/h5reg-utils.html">is.h5reg()</a></code> and <code><a href="../reference/h5reg-utils.html">read.h5reg.info()</a></code>
-</li>
-<li>add some tests and simple test h5 files</li>
-</ul>
-</div>
-    <div id="nat-h5reg-0-2-0" class="section level1">
-<h1 class="page-header">
-<a href="#nat-h5reg-0-2-0" class="anchor"></a>nat.h5reg 0.2.0</h1>
-<ul>
-<li>First public version</li>
-<li>Fully functional transforms using sample h5 format transforms from Stephan Saalfeld.</li>
-</ul>
-</div>
-  </div>
+    <div class="ref-description">
+    
+    <p>Enables the Neuroanatomy Toolbox (nat) suite to carry out 3D
+    coordinate transformation defined by points encoded in the HDF5
+    registration format defined by Stephan Saalfeld and John Bogovic.</p>
+    
+    </div>
 
+        
+    <h2 class="hasAnchor" id="h-registration-format"><a class="anchor" href="#h-registration-format"></a>h5 registration format</h2>
+
+    <p>The
+  <a href='https://github.com/saalfeldlab/template-building/wiki/Hdf5-Deformation-fields'>h5
+  registration format</a> has been defined by John Bogovic and Stephan Saalfeld
+  as an efficient way to distribute deformation fields (and accompanying
+  affine transformations). This provides a standard way to distribute and
+  apply such transforms in an HDF5 wrapper.</p>
+<p>Although deformation fields are the most general form of specifying a
+  non-rigid registration, they can be much larger than a parametric
+  deformation. h5 tools provide a substantial (lossy) compression of these
+  fields at the expense of a very small (and usually irrelevant) loss of
+  precision. They also provide the option to have one or more downsampled
+  versions of the original field, again typically with relatively little
+  impact on precision.</p>
+<p>This package supports use of `.h5` registration files through the
+  <code><a href='h5reg.html'>h5reg</a></code> class and associated functions.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Useful links:</p><ul>
+<li><p><a href='https://github.com/natverse/nat.h5reg'>https://github.com/natverse/nat.h5reg</a></p></li>
+<li><p><a href='https://natverse.github.io/nat.h5reg'>https://natverse.github.io/nat.h5reg</a></p></li>
+<li><p>Report bugs at <a href='https://github.com/natverse/nat.h5reg/issues'>https://github.com/natverse/nat.h5reg/issues</a></p></li>
+</ul></div>
+    
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#nat-h5reg-0-3-2">0.3.2</a></li>
-        <li><a href="#nat-h5reg-0-3-1">0.3.1</a></li>
-        <li><a href="#nat-h5reg-0-3-0">0.3.0</a></li>
-        <li><a href="#nat-h5reg-0-2-0">0.2.0</a></li>
-      </ul>
-    </div>
-  </div>
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      
+      <li><a href="#h-registration-format">h5 registration format</a></li>
 
+      <li><a href="#see-also">See also</a></li>
+          </ul>
+
+    <h2>Author</h2>
+    <p><strong>Maintainer</strong>: Gregory Jefferis <a href='mailto:jefferis@gmail.com'>jefferis@gmail.com</a> (0000-0002-0587-9355)</p>
+<p>Authors:</p><ul>
+<li><p>Saalfeld Lab (for transform-helpers java library) [copyright holder]</p></li>
+</ul>
+
+
+  </div>
 </div>
 
       <footer>
