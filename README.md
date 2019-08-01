@@ -12,7 +12,7 @@ of Stephan Saalfeld and John Bogovic.
 You can install the development version of nat.h5reg from GitHub with:
 
 ``` r
-devtools::install_github('jefferis/nat.h5reg')
+devtools::install_github('natverse/nat.h5reg')
 ```
 
 ## Example
