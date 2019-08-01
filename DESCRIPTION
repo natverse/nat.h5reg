@@ -1,7 +1,7 @@
 Package: nat.h5reg
 Type: Package
 Title: Neuroanatomy Toolbox Support for Saalfeld/Bogovic HDF5 Registration Format
-Version: 0.3.1
+Version: 0.3.2
 Authors@R: c(person("Gregory","Jefferis", email="jefferis@gmail.com", 
     role = c("aut", "cre"), comment = c(ORCID = "0000-0002-0587-9355")),
     person("Saalfeld Lab", role=c("cph", "aut"), 
@@ -19,5 +19,6 @@ Suggests:
     testthat
 Language: en-GB
 RoxygenNote: 6.1.1
-URL: https://github.com/natverse/nat.h5reg
+URL: https://github.com/natverse/nat.h5reg,
+    https://natverse.github.io/nat.h5reg
 BugReports: https://github.com/natverse/nat.h5reg/issues

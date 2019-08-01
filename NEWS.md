@@ -1,3 +1,8 @@
+# nat.h5reg 0.3.2
+
+* add package overview documentation
+* switch to natverse github organisation
+
 # nat.h5reg 0.3.1
 
 * Make hdf5r package an essential dependency (i.e. Import) because we
