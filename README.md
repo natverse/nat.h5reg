@@ -5,6 +5,8 @@
 [![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://natverse.github.io/nat.h5reg/reference/)
 <!-- badges: end -->
 
+<img align="right" width="300px" src="https://raw.githubusercontent.com/natverse/nat.h5reg/master/inst/images/hex-nath5reg.png">
+
 # nat.h5reg
 
 nat.h5reg enables the [Neuroanatomy Toolbox (nat)](https://jefferis.github.io/nat/)
@@ -57,3 +59,7 @@ plot(as.data.frame(diffs))
 
 Based critically on https://github.com/saalfeldlab/transform-helpers/ 
 kindly first written during a trip to Cambridge by Stephan Saalfeld.
+
+<p align="center">
+<img width="300px" src="https://raw.githubusercontent.com/natverse/nat.h5reg/master/inst/images/hex-natverse_logo.png"/>
+</p>
