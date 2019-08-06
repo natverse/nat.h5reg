@@ -3,10 +3,10 @@
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![Travis build status](https://travis-ci.org/natverse/nat.h5reg.svg?branch=master)](https://travis-ci.org/natverse/nat.h5reg)
 [![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://natverse.github.io/nat.h5reg/reference/)
+<img src="man/figures/logo.svg" align="right" height="139" /> 
 <!-- badges: end -->
 
 # nat.h5reg
-<img src="man/figures/logo.svg" align="right" height="139" /> 
 
 nat.h5reg enables the [Neuroanatomy Toolbox (nat)](https://jefferis.github.io/nat/)
 suite to carry out 3D coordinate transforms of arbitrary objects based on deformation fields
