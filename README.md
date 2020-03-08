@@ -3,6 +3,7 @@
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![Travis build status](https://travis-ci.org/natverse/nat.h5reg.svg?branch=master)](https://travis-ci.org/natverse/nat.h5reg)
 [![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://natverse.github.io/nat.h5reg/reference/)
+<img src="man/figures/logo.svg" align="right" height="139" /> 
 <!-- badges: end -->
 
 # nat.h5reg
@@ -57,3 +58,5 @@ plot(as.data.frame(diffs))
 
 Based critically on https://github.com/saalfeldlab/transform-helpers/ 
 kindly first written during a trip to Cambridge by Stephan Saalfeld.
+
+
