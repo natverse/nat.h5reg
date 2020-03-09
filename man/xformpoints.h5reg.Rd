@@ -4,7 +4,7 @@
 \alias{xformpoints.h5reg}
 \title{Map points using h5 registrations}
 \usage{
-\method{xformpoints}{h5reg}(reg, points, ...)
+\method{xformpoints}{h5reg}(reg, points, ..., method = c("java", "rjava"))
 }
 \arguments{
 \item{reg}{A \code{\link{h5reg}} object specifying one or more h5
