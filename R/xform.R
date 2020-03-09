@@ -3,9 +3,23 @@
 #' @details See \code{\link{h5reg}} for details of the ordering of
 #'   registrations.
 #'
+#' @section Java: By default \code{xformpoints.h5reg} starts a separate Java
+#'   Virtual Machine (JVM) for every call. This has an overhead that might be in
+#'   the 0.5s range, which quickly builds up. Alternatively, you can use
+#'   \code{method='rjava'}, which depends on the 'rJava' package; since rJava
+#'   can be a little difficult to install, we have not made this the default.
+#'   Using rJava transparently starts a single JVM session from R and then
+#'   reuses that, substantially speeding up the situation when you have many
+#'   small objects to transform. It is also somewhat more efficient in terms of
+#'   disk/CPU since points are retained in memory rather than written out as
+#'   text files however in my hands this has limited impact on the elapsed time.
+#'
 #' @param reg A \code{\link{h5reg}} object specifying one or more h5
 #'   registrations.
 #' @param points An Nx3 matrix of 3D points to transform
+#' @param method Whether to shell out to java executable \code{method='java'} or
+#'   use the rJava package \code{method='rjava'}. See java section for
+#'   implications of this choice.
 #' @param ... Additional arguments passed to java transform tool (currently
 #'   ignored).
 #' @export
@@ -24,6 +38,8 @@
 #' # specify a particular level for registration containing more than 1 level
 #' # of detail
 #' xform(cbind(50,50,30), h5reg('JRC2018F_FAFB.h5'), level=0)
+#' # choose faster, lower resolution registration
+#' xform(cbind(50,50,30), h5reg('JRC2018F_FAFB.h5'), level=2)
 #' # print more detailed error messages when trying to debug
 #' xform(cbind(50,50,30), h5reg('JRC2018F_FAFB.h5'), level=0, stderr="")
 #' }
@@ -31,7 +47,8 @@ xformpoints.h5reg <- function(reg, points, ..., method=c('java', 'rjava')) {
   if (ncol(points) != 3L)
     stop("xformpoints.h5reg only supports 3 dimensions!")
 
-  method=match.arg(method)
+  method=match.arg(tolower(method), choices = c('java', 'rjava'))
+
   # this should happen when we make the h5reg object of course
   swapped = attr(reg, 'swap')
   if (is.null(swapped))
