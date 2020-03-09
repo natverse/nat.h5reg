@@ -1,4 +1,4 @@
-# nat.h5reg (in development)
+# nat.h5reg (development version)
 
 * Faster transforms by using rJava when available (#6)
 
