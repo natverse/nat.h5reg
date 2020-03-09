@@ -62,6 +62,11 @@ test_that("xform works with bundled low res", {
   # note lower tolerance compared witrh previous test
   expect_equivalent(nat::xform(test.pts.t, reg = JRC2018F_FAFB.h5.i),
                     test.pts, tolerance=1e-3)
+  if(requireNamespace('rJava', quietly = T)) {
+    expect_equal(nat::xform(test.pts.t, reg = JRC2018F_FAFB.h5.i, method='rjava'),
+                      nat::xform(test.pts.t, reg = JRC2018F_FAFB.h5.i, method='java'))
+
+  }
 })
 
 test_that("h5 basics", {

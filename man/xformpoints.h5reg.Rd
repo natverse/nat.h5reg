@@ -4,7 +4,7 @@
 \alias{xformpoints.h5reg}
 \title{Map points using h5 registrations}
 \usage{
-\method{xformpoints}{h5reg}(reg, points, ..., method = c("java", "rjava"))
+\method{xformpoints}{h5reg}(reg, points, ..., method = c("auto", "java", "rjava"))
 }
 \arguments{
 \item{reg}{A \code{\link{h5reg}} object specifying one or more h5
@@ -15,8 +15,9 @@ registrations.}
 \item{...}{Additional arguments passed to java transform tool (currently
 ignored).}
 
-\item{method}{Whether to shell out to java executable \code{method='java'} or
-use the rJava package \code{method='rjava'}. See java section for
+\item{method}{Whether to shell out to java executable (\code{method='java'})
+or use the rJava package (\code{method='rjava'}). The default
+(\code{method='auto'}) uses rJava if installed. See Java section for
 implications of this choice.}
 }
 \value{
@@ -34,12 +35,13 @@ See \code{\link{h5reg}} for details of the ordering of
   Virtual Machine (JVM) for every call. This has an overhead that might be in
   the 0.5s range, which quickly builds up. Alternatively, you can use
   \code{method='rjava'}, which depends on the 'rJava' package; since rJava
-  can be a little difficult to install, we have not made this the default.
+  can be a little fiddly to install, this is only a suggested dependency.
   Using rJava transparently starts a single JVM session from R and then
   reuses that, substantially speeding up the situation when you have many
   small objects to transform. It is also somewhat more efficient in terms of
   disk/CPU since points are retained in memory rather than written out as
-  text files however in my hands this has limited impact on the elapsed time.
+  text files. However in my hands this has limited impact on the elapsed
+  time.
 }
 
 \examples{
