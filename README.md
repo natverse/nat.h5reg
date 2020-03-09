@@ -21,6 +21,8 @@ You can install the development version of nat.h5reg from GitHub with:
 devtools::install_github('natverse/nat.h5reg')
 ```
 
+See below for information about Java installation.
+
 ## Example
 
 A round trip test using a bridging registration between two template brains.
@@ -52,6 +54,32 @@ plot3d(kcs20.rt, col='blue')
 diffs=xyzmatrix(kcs20)-xyzmatrix(kcs20.rt)
 str(diffs)
 plot(as.data.frame(diffs))
+```
+
+## Java
+
+You will need to have Java installed on your system to use h5 format registrations.
+This will usually mean installing a Java Development Kit (JDK). These now come
+in a confusing number of flavours, but for personal use, the easiest is probably
+to install the latest stable 
+[Oracle JDK](https://www.oracle.com/java/technologies/javase-downloads.html). At
+the time of writing this functionality was tested versus Oracle JDK 11.0.2.
+
+You may run into errors installing the rJava package. This typically happens 
+because of mismatch between the version of your JDK and what R is expecting.
+If this happens try (in the Terminal)
+
+```
+# make sure java is in your path
+java --version
+# tell R about your current version java
+R CMD javareconf
+```
+
+Now in R, try installing rJava again
+
+```r
+install.packages("rJava")
 ```
 
 ## Acknowledgements
