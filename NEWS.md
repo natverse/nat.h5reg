@@ -1,5 +1,7 @@
 # nat.h5reg (development version)
 
+* Faster transforms by using rJava when available (#6)
+
 # nat.h5reg 0.3.2
 
 * add package overview documentation

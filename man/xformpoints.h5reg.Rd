@@ -4,7 +4,7 @@
 \alias{xformpoints.h5reg}
 \title{Map points using h5 registrations}
 \usage{
-\method{xformpoints}{h5reg}(reg, points, ...)
+\method{xformpoints}{h5reg}(reg, points, ..., method = c("auto", "java", "rjava"))
 }
 \arguments{
 \item{reg}{A \code{\link{h5reg}} object specifying one or more h5
@@ -14,6 +14,11 @@ registrations.}
 
 \item{...}{Additional arguments passed to java transform tool (currently
 ignored).}
+
+\item{method}{Whether to shell out to java executable (\code{method='java'})
+or use the rJava package (\code{method='rjava'}). The default
+(\code{method='auto'}) uses rJava if installed. See Java section for
+implications of this choice.}
 }
 \value{
 An Nx3 matrix of transformed points
@@ -25,6 +30,20 @@ Map points using h5 registrations
 See \code{\link{h5reg}} for details of the ordering of
   registrations.
 }
+\section{Java}{
+ By default \code{xformpoints.h5reg} starts a separate Java
+  Virtual Machine (JVM) for every call. This has an overhead that might be in
+  the 0.5s range, which quickly builds up. Alternatively, you can use
+  \code{method='rjava'}, which depends on the 'rJava' package; since rJava
+  can be a little fiddly to install, this is only a suggested dependency.
+  Using rJava transparently starts a single JVM session from R and then
+  reuses that, substantially speeding up the situation when you have many
+  small objects to transform. It is also somewhat more efficient in terms of
+  disk/CPU since points are retained in memory rather than written out as
+  text files. However in my hands this has limited impact on the elapsed
+  time.
+}
+
 \examples{
 \dontrun{
 # basic usage
@@ -33,6 +52,8 @@ xform(cbind(50,50,30), h5reg('JRC2018F_FAFB.h5', swap=TRUE))
 # specify a particular level for registration containing more than 1 level
 # of detail
 xform(cbind(50,50,30), h5reg('JRC2018F_FAFB.h5'), level=0)
+# choose faster, lower resolution registration
+xform(cbind(50,50,30), h5reg('JRC2018F_FAFB.h5'), level=2)
 # print more detailed error messages when trying to debug
 xform(cbind(50,50,30), h5reg('JRC2018F_FAFB.h5'), level=0, stderr="")
 }

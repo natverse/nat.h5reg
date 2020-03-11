@@ -12,11 +12,14 @@ Description: Enables the Neuroanatomy Toolbox (nat) suite to carry out 3D
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Imports: nat,
-    hdf5r
+Imports: 
+    nat,
+    hdf5r,
+    memoise
 Suggests: 
     spelling,
-    testthat
+    testthat,
+    rJava
 Language: en-GB
 RoxygenNote: 7.0.2
 URL: https://github.com/natverse/nat.h5reg,
