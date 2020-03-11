@@ -129,7 +129,7 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for h5reg</span>
-<span class='fu'>xformpoints</span>(<span class='no'>reg</span>, <span class='no'>points</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>xformpoints</span>(<span class='no'>reg</span>, <span class='no'>points</span>, <span class='no'>...</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"auto"</span>, <span class='st'>"java"</span>, <span class='st'>"rjava"</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,6 +148,13 @@ registrations.</p></td>
       <td><p>Additional arguments passed to java transform tool (currently
 ignored).</p></td>
     </tr>
+    <tr>
+      <th>method</th>
+      <td><p>Whether to shell out to java executable (<code>method='java'</code>)
+or use the rJava package (<code>method='rjava'</code>). The default
+(<code>method='auto'</code>) uses rJava if installed. See Java section for
+implications of this choice.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -157,6 +164,19 @@ ignored).</p></td>
 
     <p>See <code><a href='h5reg.html'>h5reg</a></code> for details of the ordering of
   registrations.</p>
+    <h2 class="hasAnchor" id="java"><a class="anchor" href="#java"></a>Java</h2>
+
+    <p>By default <code>xformpoints.h5reg</code> starts a separate Java
+  Virtual Machine (JVM) for every call. This has an overhead that might be in
+  the 0.5s range, which quickly builds up. Alternatively, you can use
+  <code>method='rjava'</code>, which depends on the 'rJava' package; since rJava
+  can be a little fiddly to install, this is only a suggested dependency.
+  Using rJava transparently starts a single JVM session from R and then
+  reuses that, substantially speeding up the situation when you have many
+  small objects to transform. It is also somewhat more efficient in terms of
+  disk/CPU since points are retained in memory rather than written out as
+  text files. However in my hands this has limited impact on the elapsed
+  time.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='h5reg.html'>h5reg</a></code> for an example of point transformations using h5
@@ -174,6 +194,8 @@ ignored).</p></td>
 <span class='co'># specify a particular level for registration containing more than 1 level</span>
 <span class='co'># of detail</span>
 <span class='fu'>xform</span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='fl'>50</span>,<span class='fl'>50</span>,<span class='fl'>30</span>), <span class='fu'><a href='h5reg.html'>h5reg</a></span>(<span class='st'>'JRC2018F_FAFB.h5'</span>), <span class='kw'>level</span><span class='kw'>=</span><span class='fl'>0</span>)
+<span class='co'># choose faster, lower resolution registration</span>
+<span class='fu'>xform</span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='fl'>50</span>,<span class='fl'>50</span>,<span class='fl'>30</span>), <span class='fu'><a href='h5reg.html'>h5reg</a></span>(<span class='st'>'JRC2018F_FAFB.h5'</span>), <span class='kw'>level</span><span class='kw'>=</span><span class='fl'>2</span>)
 <span class='co'># print more detailed error messages when trying to debug</span>
 <span class='fu'>xform</span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='fl'>50</span>,<span class='fl'>50</span>,<span class='fl'>30</span>), <span class='fu'><a href='h5reg.html'>h5reg</a></span>(<span class='st'>'JRC2018F_FAFB.h5'</span>), <span class='kw'>level</span><span class='kw'>=</span><span class='fl'>0</span>, <span class='kw'>stderr</span><span class='kw'>=</span><span class='st'>""</span>)
 }</div></pre>
@@ -184,6 +206,7 @@ ignored).</p></td>
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
+      <li><a href="#java">Java</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
