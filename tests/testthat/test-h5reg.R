@@ -38,9 +38,7 @@ test_that("xform works with hi res", {
   JRC2018F_FAFB.h5=h5reg(reg, swap=FALSE)
   JRC2018F_FAFB.h5.i=h5reg(reg, swap=TRUE)
 
-  # warn if we have to choose a default registration without being told
-  expect_warning(test.pts.t <- nat::xform(test.pts, reg = JRC2018F_FAFB.h5),
-                 'using default registration')
+  expect_silent(test.pts.t <- nat::xform(test.pts, reg = JRC2018F_FAFB.h5))
 
   expect_known_value(test.pts.t, 'testdata/invpts-hi.rds')
   expect_silent(test.pts.rt <- nat::xform(test.pts.t, reg = JRC2018F_FAFB.h5.i, level=0))

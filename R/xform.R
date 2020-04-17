@@ -81,7 +81,7 @@ xformpoints.h5reg <- function(reg, points, ..., method=c('auto', 'java', 'rjava'
 # Saalfeld/Bogovic HDF5 format transforms are defined with
 # forward being the direction that transforms
 #' @importFrom utils write.table read.table
-saalfeld_xform <- function(points, reg, inverse=FALSE, level=NA, stderr=FALSE, ...) {
+saalfeld_xform <- function(points, reg, inverse=FALSE, level=NA, stderr=FALSE, Verbose=FALSE, ...) {
   pointsfile=tempfile(fileext=".txt")
   on.exit(unlink(pointsfile))
   write.table(points, file=pointsfile, row.names=FALSE, col.names=FALSE)
@@ -100,8 +100,8 @@ saalfeld_xform <- function(points, reg, inverse=FALSE, level=NA, stderr=FALSE, .
   #
   if(is.na(level)) {
     level <- default_h5_level(reg)
-    if(is.finite(level))
-      warning("using default registration level: ", level, " for file: ", reg)
+    if(is.finite(level) && Verbose)
+      message("using default registration level: ", level, " for file: ", reg)
   }
   if(is.finite(level)) args=c(args, "--level", level)
 
@@ -136,7 +136,7 @@ saalfeld_jinit <- memoise::memoise(function() {
 
 rjavaok <- function() isFALSE(inherits(try(saalfeld_jinit(),silent = T), 'try-error'))
 
-saalfeld_rjava_xform <- function(points, reg, inverse=FALSE, level=NA, ...) {
+saalfeld_rjava_xform <- function(points, reg, inverse=FALSE, level=NA, Verbose=FALSE, ...) {
   saalfeld_jinit()
 
   transformFile=as.character(reg)
@@ -146,8 +146,8 @@ saalfeld_rjava_xform <- function(points, reg, inverse=FALSE, level=NA, ...) {
 
   if(is.na(level)) {
     level <- default_h5_level(reg)
-    if(is.finite(level))
-      warning("using default registration level: ", level, " for file: ", reg)
+    if(is.finite(level) && Verbose)
+      message("using default registration level: ", level, " for file: ", reg)
   }
 
   path=paste0(ifelse(is.finite(level), paste0(level, "/"), ""),
