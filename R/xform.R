@@ -58,10 +58,24 @@ xformpoints.h5reg <- function(reg, points, ..., method=c('auto', 'java', 'rjava'
   if (is.null(swapped))
     swapped = rep(TRUE, length(reg))
 
-  if(method=='java')
+  nas=is.na(points[,1])
+  if(sum(nas)) {
+    origpoints=points
+    points=points[!nas, , drop=FALSE]
+  }
+
+  pointst <- if(method=='java')
     saalfeld_xform(points, reg, inverse = !swapped, ...)
   else
     saalfeld_rjava_xform(points, reg, inverse = !swapped, ...)
+
+  if(sum(nas)){
+    origpoints[!nas, ]=pointst
+    origpoints
+  } else {
+    dimnames(pointst)=dimnames(points)
+    pointst
+  }
 }
 
 # Saalfeld/Bogovic HDF5 format transforms are defined with

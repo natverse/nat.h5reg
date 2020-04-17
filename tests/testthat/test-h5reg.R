@@ -62,6 +62,15 @@ test_that("xform works with bundled low res", {
   expect_equivalent(nat::xform(test.pts.t, reg = JRC2018F_FAFB.h5.i),
                     test.pts, tolerance=1e-3)
 
+  # check that we can handle NAs
+  test.pts.na <- test.pts
+  test.pts.na[3,]=NA
+  test.pts.na.t <- test.pts.t
+  test.pts.na.t[3,]=NA
+
+  expect_warning(nares <- nat::xform(test.pts.na, reg = JRC2018F_FAFB.h5))
+  expect_equal(nares, test.pts.na.t)
+
   testthat::skip_if_not_installed('rJava')
 
   expect_equal(nat::xform(test.pts.t, reg = JRC2018F_FAFB.h5.i, method='rjava'),
