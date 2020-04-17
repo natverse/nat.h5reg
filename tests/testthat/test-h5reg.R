@@ -48,25 +48,26 @@ test_that("xform works with hi res", {
   expect_equivalent(test.pts.rt, test.pts, tolerance=1e-4)
 })
 
+reg = system.file('samples/JRC2018F_FAFB_extrasmall.h5', package = 'nat.h5reg')
+
+JRC2018F_FAFB.h5=h5reg(reg, swap=FALSE)
+JRC2018F_FAFB.h5.i=h5reg(reg, swap=TRUE)
+
 test_that("xform works with bundled low res", {
-
-  reg=system.file('samples/JRC2018F_FAFB_extrasmall.h5', package = 'nat.h5reg')
-  # skip_if_not(file.exists(reg))
-
-  JRC2018F_FAFB.h5=h5reg(reg, swap=FALSE)
-  JRC2018F_FAFB.h5.i=h5reg(reg, swap=TRUE)
 
   expect_known_value(test.pts.t <- nat::xform(test.pts, reg = JRC2018F_FAFB.h5),
                      'testdata/invpts-lo.rds')
   # round trip test - not exact because of quantisation
-  # note lower tolerance compared witrh previous test
+  # note lower tolerance compared with previous test
   expect_equivalent(nat::xform(test.pts.t, reg = JRC2018F_FAFB.h5.i),
                     test.pts, tolerance=1e-3)
-  if(requireNamespace('rJava', quietly = T)) {
-    expect_equal(nat::xform(test.pts.t, reg = JRC2018F_FAFB.h5.i, method='rjava'),
-                      nat::xform(test.pts.t, reg = JRC2018F_FAFB.h5.i, method='java'))
 
-  }
+  testthat::skip_if_not_installed('rJava')
+
+  expect_equal(nat::xform(test.pts.t, reg = JRC2018F_FAFB.h5.i, method='rjava'),
+                      nat::xform(test.pts.t, reg = JRC2018F_FAFB.h5.i,
+                                 method='java'))
+
 })
 
 test_that("h5 basics", {
