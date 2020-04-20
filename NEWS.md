@@ -1,6 +1,8 @@
-# nat.h5reg (development version)
+# nat.h5reg 0.4.0
 
 * Faster transforms by using rJava when available (#6)
+* Don't warn when using a default registration level (#8)
+* fix saalfeld_xform fails with NA points in inputs (#7)
 
 # nat.h5reg 0.3.2
 
