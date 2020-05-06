@@ -71,7 +71,7 @@ test_that("xform works with bundled low res", {
 
   testthat::skip_if_not_installed('rJava')
 
-  expect_equal(nat::xform(test.pts.t, reg = JRC2018F_FAFB.h5.i, method='rjava'),
+  expect_equal(nat::xform(test.pts.t, reg = JRC2018F_FAFB.h5.i, method='rjava', progress.rjava=T),
                       nat::xform(test.pts.t, reg = JRC2018F_FAFB.h5.i,
                                  method='java'))
 

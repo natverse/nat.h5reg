@@ -15,7 +15,8 @@ LazyData: true
 Imports: 
     nat,
     hdf5r,
-    memoise
+    memoise,
+    progress
 Suggests: 
     spelling,
     testthat,

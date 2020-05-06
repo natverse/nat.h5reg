@@ -121,7 +121,7 @@ saalfeld_xform <- function(points, reg, inverse=FALSE, level=NA, stderr=FALSE, V
   pointst
 }
 
-saalfeld_rjava_xform <- function(points, reg, inverse=FALSE, level=NA, Verbose=FALSE, ...) {
+saalfeld_rjava_xform <- function(points, reg, inverse=FALSE, level=NA, Verbose=FALSE, progress.rjava=FALSE, ...) {
   saalfeld_jinit()
 
   transformFile=as.character(reg)
@@ -143,7 +143,17 @@ saalfeld_rjava_xform <- function(points, reg, inverse=FALSE, level=NA, Verbose=F
   # output array
   pointst=points
   q=rJava::.jarray(rep(0,3), "[D")
+  if(isTRUE(progress.rjava)) {
+    pb <- progress::progress_bar$new(
+      total = nrow(points),
+      format = "  :current/:total [:bar]  eta: :eta",
+      show_after = 2, ...)
+    mod <- ceiling(nrow(points)/1000)
+  }
   for(i in 1:nrow(points)) {
+    if(isTRUE(progress.rjava) && (i %% mod)==0) {
+      pb$tick(mod)
+    }
     rJava::.jcall(mytransform, "V", "apply", points[i,], q)
     pointst[i,] <- rJava::.jevalArray(q)
   }
