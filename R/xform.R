@@ -147,7 +147,7 @@ saalfeld_rjava_xform <- function(points, reg, inverse=FALSE, level=NA, Verbose=F
     pb <- progress::progress_bar$new(
       total = nrow(points),
       format = "  :current/:total [:bar]  eta: :eta",
-      show_after = 2, ...)
+      show_after = 2)
     mod <- ceiling(nrow(points)/1000)
   }
   for(i in 1:nrow(points)) {
