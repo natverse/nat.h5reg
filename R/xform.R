@@ -35,15 +35,18 @@
 #' @examples
 #' \dontrun{
 #' # basic usage
-#' xform(cbind(50,50,30), h5reg('JRC2018F_FAFB.h5'))
-#' xform(cbind(50,50,30), h5reg('JRC2018F_FAFB.h5', swap=TRUE))
+#' sampleh5path=system.file("inst/samples/JRC2018F_FAFB_extrasmall.h5",
+#'   package = 'nat.h5reg')
+#' sampleh5reg=h5reg('JRC2018F_FAFB.h5')
+#' xform(cbind(50,50,30), sampleh5reg)
+#' xform(cbind(50,50,30), sampleh5reg, swap=TRUE))
 #' # specify a particular level for registration containing more than 1 level
 #' # of detail
-#' xform(cbind(50,50,30), h5reg('JRC2018F_FAFB.h5'), level=0)
+#' xform(cbind(50,50,30), sampleh5reg, level=0)
 #' # choose faster, lower resolution registration
-#' xform(cbind(50,50,30), h5reg('JRC2018F_FAFB.h5'), level=2)
+#' xform(cbind(50,50,30), sampleh5reg, level=2)
 #' # print more detailed error messages when trying to debug
-#' xform(cbind(50,50,30), h5reg('JRC2018F_FAFB.h5'), level=0, stderr="")
+#' xform(cbind(50,50,30), sampleh5reg, level=0, stderr="")
 #' }
 xformpoints.h5reg <- function(reg, points, ..., method=c('auto', 'java', 'rjava')) {
   if (ncol(points) != 3L)
