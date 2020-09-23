@@ -153,12 +153,17 @@ saalfeld_rjava_xform <- function(points, reg, inverse=FALSE, level=NA, Verbose=F
       show_after = 2)
     mod <- ceiling(nrow(points)/1000)
   }
+  # profiling suggests that :: takes signifiant time (order 1/6 of total)
+  # but we can't just import because rJava is suggested not imported.
+  # Not sure that force is required.
+  myjcall=rJava::.jcall
+  myjeval=rJava::.jevalArray
   for(i in 1:nrow(points)) {
     if(isTRUE(progress.rjava) && (i %% mod)==0) {
       pb$tick(mod)
     }
-    rJava::.jcall(mytransform, "V", "apply", points[i,], q)
-    pointst[i,] <- rJava::.jevalArray(q)
+    myjcall(mytransform, "V", "apply", points[i,], q)
+    pointst[i,] <- myjeval(q)
   }
   pointst
 }
