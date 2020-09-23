@@ -58,7 +58,7 @@ xform(cbind(50,50,30), sampleh5reg, level=0)
 # choose faster, lower resolution registration
 xform(cbind(50,50,30), sampleh5reg, level=2)
 # print more detailed error messages when trying to debug
-xform(cbind(50,50,30), sampleh5regm, level=0, stderr="")
+xform(cbind(50,50,30), sampleh5reg, level=0, stderr="")
 }
 }
 \seealso{
