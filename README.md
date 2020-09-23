@@ -65,6 +65,12 @@ to install the latest stable
 [Oracle JDK](https://www.oracle.com/java/technologies/javase-downloads.html). At
 the time of writing this functionality was tested versus Oracle JDK 11.0.2.
 
+You can find out about your java installation by doing:
+
+```
+nat.h5reg::dr_java()
+```
+
 You may run into errors installing the rJava package. This typically happens 
 because of mismatch between the version of your JDK and what R is expecting.
 If this happens try (in the Terminal)

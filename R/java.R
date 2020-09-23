@@ -24,3 +24,78 @@ java_install_instructions <- function() {
 }
 
 rjavaok <- function() isFALSE(inherits(try(saalfeld_jinit(),silent = T), 'try-error'))
+
+
+#' Check the local java configuration (required for h5reg transforms)
+#'
+#' @export
+#'
+#' @examples
+#' \donttest{
+#' dr_java()
+#' }
+dr_java <- function() {
+  rjava <- rjavaok()
+  message("rJava\n----")
+  if(rjava) {
+    message("The rJava package is linked to the following JVM")
+    rjava.props <- parse_java_props()
+    message('java.version=', rjava.props['java.version'])
+    message('java.home=', rjava.props['java.home'])
+    message('java.class.version=', rjava.props['java.class.version'])
+    if(numeric_version(rjava.props['java.class.version'])<'52.0') {
+      message("Unfortunately rJava is linked to an old version of Java.",
+              "You must:\n", java_install_instructions())
+    }
+  } else {
+    message("rJava is not available! This is the preferred way to access java and you can do this as follows!\n", java_install_instructions())
+  }
+  java <- Sys.which('java')
+  message("\nSystem java\n----\n(used as a fallback when rJava not available)")
+  if(nzchar(java)) {
+    message("java run time found at: ", java)
+    jv <- java_version()
+    message("java.version: ",jv)
+    if(jv<"8.0" && isFALSE(rjava)) {
+      message("Unfortunately you do not have rJava and your system java (",
+              jv, ") is too old to substitute.")
+    }
+  } else {
+    message("No java command line tool found in your path!")
+  }
+}
+
+dr_java_oneoff <- memoise::memoise(dr_java)
+
+parse_java_props <- function(x=NULL) {
+  if(is.null(x)) {
+    jsys = rJava::.jnew("java.lang.System")
+    x = jsys$getProperties()$toString()
+  }
+  # remove leading and trailing {
+  x = substr(x, 2, nchar(x)-1)
+  jsys.propsc = unlist(strsplit(x, ", ", fixed=T))
+  pn=sub("^([^=]+)=(.*)","\\1", jsys.propsc)
+  pp=sub("^([^=]+)=(.*)","\\2", jsys.propsc)
+  props=structure(pp, .Names=pn)
+  props
+}
+
+java_version <- function() {
+  versionstr=tryCatch(system2("java",  args = "-version", stdout = TRUE, stderr = T),
+           warning=function(e) "")[1]
+  if(nzchar(versionstr)) {
+    cands=unlist(strsplit(versionstr, " "))
+    found=grep("[0-9]+\\.[0-9]+\\.[0-9]+", cands, value = T)
+    found=sub("_.*", "", found)
+    found=gsub('"', '', found)
+    if(length(found)) {
+      # if we start with 1. then we should remove that
+      found=sub("^1\\.", "", as.character(found))
+      numeric_version(found)
+    } else NA
+  } else {
+    NA
+  }
+
+}
