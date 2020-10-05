@@ -8,7 +8,7 @@ saalfeld_jinit <- memoise::memoise(function() {
   if(res<0)
     stop("Unable to intialise the JVM")
   else if(res>0)
-    warning("Only partially successful intialising JVM. See ?jinit fot details")
+    warning("Only partially successful intialising JVM. See ?jinit for details")
   jarfile <- system.file("java/transform-helpers-0.0.1-shaded.jar", package = 'nat.h5reg')
   rJava::.jaddClassPath(jarfile)
 })
