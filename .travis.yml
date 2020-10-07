@@ -10,6 +10,8 @@ addons:
     - libhdf5-dev
     - mesa-common-dev
     - libglu1-mesa-dev
+    - libharfbuzz-dev
+    - libfribidi-dev
 env:
   global:
     - RGL_USE_NULL=TRUE
