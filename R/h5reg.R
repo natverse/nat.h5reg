@@ -118,6 +118,8 @@ read.h5reg.info <- function(x, ...) {
   sapply(h5_listing$name[good_rows], function(n) myinfo2(h5[[n]]), simplify = F)
 }
 
+read.h5reg.info.memo <- memoise::memoise(read.h5reg.info)
+
 
 #' @description \code{is.h5reg} checks if a file (or bytes in memory) looks like
 #'   \code{h5reg} file.
@@ -164,8 +166,8 @@ is.hdf5 <- function(f = NULL, bytes = NULL) {
   )
 }
 
-default_h5_level <- function(x) {
-  i <- read.h5reg.info(x)
+default_h5_level <- function(x, cache=TRUE) {
+  i <- if(cache) read.h5reg.info.memo(x) else read.h5reg.info(x)
   if('dfield' %in% names(i)) {
     # we have a file that is not
     NA_integer_
