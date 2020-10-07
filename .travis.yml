@@ -18,6 +18,7 @@ apt_packages:
   - r-cran-rjava
 before_install:
   - sudo $(which R) CMD javareconf
+  - Rscript -e 'remotes::install_github("r-lib/pkgdown")'
 
 before_cache: Rscript -e 'remotes::install_github("r-lib/pkgdown")'
 deploy:
