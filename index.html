@@ -91,51 +91,56 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install the development version of nat.h5reg from GitHub with:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu">install_github</span>(<span class="st">'natverse/nat.h5reg'</span>)</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">'natverse/nat.h5reg'</span><span class="op">)</span></pre></div>
 <p>See below for information about Java installation.</p>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <p>A round trip test using a bridging registration between two template brains.</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">nat.h5reg</span>)
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/natverse/nat.h5reg">nat.h5reg</a></span><span class="op">)</span>
 
 <span class="co"># We will use sample Kenyon Cells in FCWB (FlyCircuit) space</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">nat</span>)
-<span class="fu"><a href="https://rdrr.io/pkg/nat/man/neuronlist-dataframe-methods.html">head</a></span>(<span class="no">kcs20</span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/natverse/nat">nat</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/nat/man/neuronlist-dataframe-methods.html">head</a></span><span class="op">(</span><span class="va">kcs20</span><span class="op">)</span>
 
 <span class="co"># swap=FALSE, so this will map points onto JRC2018F </span>
-<span class="no">kcs20.jrc2018</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/nat/man/xform.html">xform</a></span>(<span class="no">kcs20</span>,
-  <span class="kw">reg</span> <span class="kw">=</span> <span class="fu"><a href="reference/h5reg.html">h5reg</a></span>(<span class="st">'JRC2018F_FCWB_transform_quant16.h5'</span>, <span class="kw">swap</span><span class="kw">=</span><span class="fl">FALSE</span>)
-)
+<span class="va">kcs20.jrc2018</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/nat/man/xform.html">xform</a></span><span class="op">(</span><span class="va">kcs20</span>, 
+  reg <span class="op">=</span> <span class="fu"><a href="reference/h5reg.html">h5reg</a></span><span class="op">(</span><span class="st">'JRC2018F_FCWB_transform_quant16.h5'</span>, swap<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
+<span class="op">)</span>
 
 <span class="co"># map back again (round trip test)</span>
-<span class="no">kcs20.rt</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/nat/man/xform.html">xform</a></span>(
-  <span class="no">kcs20.jrc2018</span>,
-  <span class="kw">reg</span> <span class="kw">=</span> <span class="fu"><a href="reference/h5reg.html">h5reg</a></span>(<span class="st">'JRC2018F_FCWB_transform_quant16.h5'</span>)
-)
+<span class="va">kcs20.rt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/nat/man/xform.html">xform</a></span><span class="op">(</span>
+  <span class="va">kcs20.jrc2018</span>,
+  reg <span class="op">=</span> <span class="fu"><a href="reference/h5reg.html">h5reg</a></span><span class="op">(</span><span class="st">'JRC2018F_FCWB_transform_quant16.h5'</span><span class="op">)</span>
+<span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/pkg/nat/man/plot3d.html">plot3d</a></span>(<span class="no">kcs20.jrc2018</span>, <span class="kw">col</span><span class="kw">=</span><span class="st">'green'</span>)
+<span class="fu"><a href="https://rdrr.io/pkg/nat/man/plot3d.html">plot3d</a></span><span class="op">(</span><span class="va">kcs20.jrc2018</span>, col<span class="op">=</span><span class="st">'green'</span><span class="op">)</span>
 
-<span class="fu">clear3d</span>()
-<span class="fu"><a href="https://rdrr.io/pkg/nat/man/plot3d.html">plot3d</a></span>(<span class="no">kcs20</span>, <span class="kw">col</span><span class="kw">=</span><span class="st">'red'</span>)
-<span class="fu"><a href="https://rdrr.io/pkg/nat/man/plot3d.html">plot3d</a></span>(<span class="no">kcs20.rt</span>, <span class="kw">col</span><span class="kw">=</span><span class="st">'blue'</span>)
+<span class="fu">clear3d</span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/nat/man/plot3d.html">plot3d</a></span><span class="op">(</span><span class="va">kcs20</span>, col<span class="op">=</span><span class="st">'red'</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/nat/man/plot3d.html">plot3d</a></span><span class="op">(</span><span class="va">kcs20.rt</span>, col<span class="op">=</span><span class="st">'blue'</span><span class="op">)</span>
 
-<span class="no">diffs</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/pkg/nat/man/xyzmatrix.html">xyzmatrix</a></span>(<span class="no">kcs20</span>)-<span class="fu"><a href="https://rdrr.io/pkg/nat/man/xyzmatrix.html">xyzmatrix</a></span>(<span class="no">kcs20.rt</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">diffs</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(<span class="no">diffs</span>))</pre></div>
+<span class="va">diffs</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/nat/man/xyzmatrix.html">xyzmatrix</a></span><span class="op">(</span><span class="va">kcs20</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/pkg/nat/man/xyzmatrix.html">xyzmatrix</a></span><span class="op">(</span><span class="va">kcs20.rt</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">diffs</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">diffs</span><span class="op">)</span><span class="op">)</span></pre></div>
 </div>
 <div id="java" class="section level2">
 <h2 class="hasAnchor">
 <a href="#java" class="anchor"></a>Java</h2>
 <p>You will need to have Java installed on your system to use h5 format registrations. This will usually mean installing a Java Development Kit (JDK). These now come in a confusing number of flavours, but for personal use, the easiest is probably to install the latest stable <a href="https://www.oracle.com/java/technologies/javase-downloads.html">Oracle JDK</a>. At the time of writing this functionality was tested versus Oracle JDK 11.0.2.</p>
+<p>You can find out about your java installation by doing:</p>
+<pre><code><a href="reference/dr_java.html">nat.h5reg::dr_java()</a></code></pre>
 <p>You may run into errors installing the rJava package. This typically happens because of mismatch between the version of your JDK and what R is expecting. If this happens try (in the Terminal)</p>
 <pre><code># make sure java is in your path
 java --version
 # tell R about your current version java
 R CMD javareconf</code></pre>
 <p>Now in R, try installing rJava again</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"rJava"</span>)</pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"rJava"</span><span class="op">)</span></pre></div>
 </div>
 <div id="acknowledgements" class="section level2">
 <h2 class="hasAnchor">
@@ -190,7 +195,7 @@ R CMD javareconf</code></pre>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
