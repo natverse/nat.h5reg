@@ -63,6 +63,30 @@ dr_java <- function() {
   } else {
     message("No java command line tool found in your path!")
   }
+
+  message("\nh5reg test\n----")
+  reg = system.file('samples/JRC2018F_FAFB_extrasmall.h5', package = 'nat.h5reg')
+  JRC2018F_FAFB.h5=h5reg(reg, swap=FALSE)
+  JRC2018F_FAFB.h5.i=h5reg(reg, swap=TRUE)
+  res=try(nat::xform(test.pts[1,, drop=F], reg = JRC2018F_FAFB.h5))
+  if(inherits(res, 'try-error'))
+    message("failure in h5reg xform infrastructure!")
+  else {
+    message("h5reg xform infrastructure OK!")
+    baseline = matrix(
+      c(434.893966568567, 48.8813320055595, 159.133844268717),
+      ncol = 3,
+      dimnames = list(NULL, c("X", "Y", "Z"))
+    )
+    if(!isTRUE(all.equal(res, baseline, tolerance=1e-6)))
+      message("xform test gave incorrect result")
+    else
+      message("xform test gave correct results")
+  }
+}
+
+dr_h5reg <- function() {
+
 }
 
 dr_java_oneoff <- memoise::memoise(dr_java)
