@@ -2,7 +2,7 @@
 
 language: R
 dist: xenial
-sudo: false
+sudo: required
 cache: packages
 addons:
   apt:
@@ -13,6 +13,12 @@ addons:
 env:
   global:
     - RGL_USE_NULL=TRUE
+
+apt_packages:
+  - r-cran-rjava
+before_install:
+  - sudo $(which R) CMD javareconf
+
 before_cache: Rscript -e 'remotes::install_github("r-lib/pkgdown")'
 deploy:
   provider: script
