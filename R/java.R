@@ -1,5 +1,5 @@
 ## Intention is for this to be run once e.g. by memoisation
-saalfeld_jinit <- memoise::memoise(function() {
+saalfeld_jinit <- memoise::memoise(function(pid=Sys.getpid()) {
   if(!requireNamespace('rJava', quietly = TRUE))
     stop("Install the rJava package in order to use the (faster) rjava ",
          "transform method!\n",
