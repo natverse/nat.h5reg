@@ -1,3 +1,10 @@
+# nat.h5reg 0.4.1
+
+* `dr_h5reg()` to check java and h5reg installation
+* substantial speed-up in transforming `neuronlist` objects with 
+  `xformpoints.h5reg()` by memoising the default level check for h5reg objects
+  (17148d5219ff1b1b99ab1dfb4f793eede175cf39).
+
 # nat.h5reg 0.4.0
 
 * Faster transforms by using rJava when available (#6)
