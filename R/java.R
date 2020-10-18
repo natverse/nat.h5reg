@@ -26,23 +26,17 @@ java_install_instructions <- function() {
 rjavaok <- function() isFALSE(inherits(try(saalfeld_jinit(),silent = T), 'try-error'))
 
 
-#' Check the local java configuration (required for h5reg transforms)
-#'
 #' @export
-#'
-#' @examples
-#' \donttest{
-#' dr_java()
-#' }
+#' @rdname dr_h5reg
 dr_java <- function() {
   rjava <- rjavaok()
   message("rJava\n----")
   if(rjava) {
-    message("The rJava package is linked to the following JVM")
+    cat("The rJava package is linked to the following JVM\n")
     rjava.props <- parse_java_props()
-    message('java.version=', rjava.props['java.version'])
-    message('java.home=', rjava.props['java.home'])
-    message('java.class.version=', rjava.props['java.class.version'])
+    cat('java.version:', rjava.props['java.version'], "\n")
+    cat('java.home:', rjava.props['java.home'], "\n")
+    cat('java.class.version:', rjava.props['java.class.version'], "\n")
     if(numeric_version(rjava.props['java.class.version'])<'52.0') {
       message("Unfortunately rJava is linked to an old version of Java.",
               "You must:\n", java_install_instructions())
@@ -51,11 +45,12 @@ dr_java <- function() {
     message("rJava is not available! This is the preferred way to access java and you can do this as follows!\n", java_install_instructions())
   }
   java <- Sys.which('java')
-  message("\nSystem java\n----\n(used as a fallback when rJava not available)")
+  message("\nSystem java\n----")
+  cat("(used as a fallback when rJava not available)\n")
   if(nzchar(java)) {
-    message("java run time found at: ", java)
+    cat("java run time found at:", java, "\n")
     jv <- java_version()
-    message("java.version: ",jv)
+    cat("java.version:", as.character(jv), "\n")
     if(jv<"8.0" && isFALSE(rjava)) {
       message("Unfortunately you do not have rJava and your system java (",
               jv, ") is too old to substitute.")
@@ -63,30 +58,41 @@ dr_java <- function() {
   } else {
     message("No java command line tool found in your path!")
   }
+}
 
+
+
+#' Check the local h5reg and java configuration (required for h5reg transforms)
+#'
+#' @examples
+#' \donttest{
+#' dr_h5reg()
+#' }
+#' @export
+dr_h5reg <- function() {
+  dr_java()
   message("\nh5reg test\n----")
   reg = system.file('samples/JRC2018F_FAFB_extrasmall.h5', package = 'nat.h5reg')
   JRC2018F_FAFB.h5=h5reg(reg, swap=FALSE)
   JRC2018F_FAFB.h5.i=h5reg(reg, swap=TRUE)
-  res=try(nat::xform(test.pts[1,, drop=F], reg = JRC2018F_FAFB.h5))
+  testpts=matrix(c(672.5979, 110.4452, 169.01), ncol = 3,
+                 dimnames = list(NULL, c("X", "Y", "Z")))
+  res=try(nat::xform(testpts, reg = JRC2018F_FAFB.h5))
   if(inherits(res, 'try-error'))
     message("failure in h5reg xform infrastructure!")
   else {
-    message("h5reg xform infrastructure OK!")
+    cat("h5reg xform infrastructure OK!\n")
     baseline = matrix(
-      c(434.893966568567, 48.8813320055595, 159.133844268717),
+      c(434.8939, 48.85098, 159.0788),
       ncol = 3,
       dimnames = list(NULL, c("X", "Y", "Z"))
     )
-    if(!isTRUE(all.equal(res, baseline, tolerance=1e-6)))
+    check=all.equal(res, baseline, tolerance=1e-6)
+    if(!isTRUE(check)){
       message("xform test gave incorrect result")
-    else
-      message("xform test gave correct results")
+      cat(check,"\n")
+    } else cat("xform test gave correct results")
   }
-}
-
-dr_h5reg <- function() {
-
 }
 
 dr_java_oneoff <- memoise::memoise(dr_java)
