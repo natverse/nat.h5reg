@@ -1,3 +1,7 @@
+# nat.h5reg 0.4.2
+
+* try to provide more information about java errors in `saalfeld_xform()`
+
 # nat.h5reg 0.4.1
 
 * `dr_h5reg()` to check java and h5reg installation
