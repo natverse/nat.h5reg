@@ -45,15 +45,19 @@ See \code{\link{h5reg}} for details of the ordering of
 }
 
 \examples{
-\dontrun{
+\donttest{
 # basic usage
-sampleh5path=system.file("inst/samples/JRC2018F_FAFB_extrasmall.h5",
+sampleh5path=system.file("samples/JRC2018F_FAFB_extrasmall.h5",
   package = 'nat.h5reg')
-sampleh5reg=h5reg('JRC2018F_FAFB.h5')
+sampleh5reg=h5reg(sampleh5path)
 xform(cbind(50,50,30), sampleh5reg)
-xform(cbind(50,50,30), sampleh5reg, swap=TRUE))
+xform(cbind(50,50,30), sampleh5reg, swap=TRUE)
+}
+
+\dontrun{
 # specify a particular level for registration containing more than 1 level
 # of detail
+# NB not implemented in this sample
 xform(cbind(50,50,30), sampleh5reg, level=0)
 # choose faster, lower resolution registration
 xform(cbind(50,50,30), sampleh5reg, level=2)
