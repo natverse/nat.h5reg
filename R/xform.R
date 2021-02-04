@@ -35,6 +35,7 @@
 #' @examples
 #' \donttest{
 #' # basic usage
+#' library(nat)
 #' sampleh5path=system.file("samples/JRC2018F_FAFB_extrasmall.h5",
 #'   package = 'nat.h5reg')
 #' sampleh5reg=h5reg(sampleh5path)
