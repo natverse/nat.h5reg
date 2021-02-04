@@ -94,7 +94,8 @@ saalfeld_xform <- function(points, reg, inverse=FALSE, level=NA, stderr=FALSE, V
   write.table(points, file=pointsfile, row.names=FALSE, col.names=FALSE)
 
   outfile=tempfile()
-  on.exit(unlink(outfile), add=TRUE)
+  errfile=tempfile()
+  on.exit(unlink(c(outfile, errfile)), add=TRUE)
 
   jarfile <- system.file("java/transform-helpers-0.0.1-shaded.jar", package = 'nat.h5reg')
 
@@ -117,10 +118,13 @@ saalfeld_xform <- function(points, reg, inverse=FALSE, level=NA, stderr=FALSE, V
     "java",
     args=args,
     stdout = outfile,
-    stderr = stderr
+    stderr = errfile
   )
 
-  if(rval!=0) stop("Error running saalfeld xform!")
+  if(rval!=0) {
+    warning(readLines(errfile))
+    stop("Error running saalfeld xform! To debug run `nat.h5reg::dr_h5reg()`\n")
+  }
   outpoints <- read.table(outfile,
                           col.names=c('X', 'Y', 'Z', 'Failed'), row.names=NULL,
                           colClasses=c(rep('numeric', 3), 'factor'), fill=TRUE)

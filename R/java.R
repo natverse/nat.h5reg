@@ -19,7 +19,7 @@ java_install_instructions <- function() {
     "* you could get this from https://www.oracle.com/java/technologies/javase-jdk11-downloads.html\n",
     " * run `R CMD javareconf` in the terminal\n",
     " * run `install.packages('rJava')` in a clean R session\n",
-    "* If you have any trouble, please see http://natverse.org/nat.h5reg/"
+    "* If you have any trouble, please see http://natverse.org/nat.h5reg/#java"
   )
 }
 
@@ -42,7 +42,7 @@ dr_java <- function() {
               "You must:\n", java_install_instructions())
     }
   } else {
-    message("rJava is not available! This is the preferred way to access java and you can do this as follows!\n", java_install_instructions())
+    message("rJava is not available! This is the preferred way to access java and you can install as follows!\n", java_install_instructions())
   }
   java <- Sys.which('java')
   message("\nSystem java\n----")
@@ -57,7 +57,10 @@ dr_java <- function() {
     }
   } else {
     message("No java command line tool found in your path!")
+    if(rjava)
+      message("see http://natverse.org/nat.h5reg/#java for help!")
   }
+  invisible(c(rjava=rjava, java=nzchar(java)))
 }
 
 
@@ -70,15 +73,21 @@ dr_java <- function() {
 #' }
 #' @export
 dr_h5reg <- function() {
-  dr_java()
+  javaok=dr_java()
   message("\nh5reg test\n----")
-  reg = system.file('samples/JRC2018F_FAFB_extrasmall.h5', package = 'nat.h5reg')
-  JRC2018F_FAFB.h5=h5reg(reg, swap=FALSE)
-  JRC2018F_FAFB.h5.i=h5reg(reg, swap=TRUE)
-  testpts=matrix(c(672.5979, 110.4452, 169.01), ncol = 3,
-                 dimnames = list(NULL, c("X", "Y", "Z")))
-  res=try(nat::xform(testpts, reg = JRC2018F_FAFB.h5))
-  if(inherits(res, 'try-error'))
+  h5regok <- if(!any(javaok)) {
+    message("No java infrastructure available so h5reg cannot be used/tested!")
+    FALSE
+  } else {
+    reg = system.file('samples/JRC2018F_FAFB_extrasmall.h5', package = 'nat.h5reg')
+    JRC2018F_FAFB.h5=h5reg(reg, swap=FALSE)
+    JRC2018F_FAFB.h5.i=h5reg(reg, swap=TRUE)
+    testpts=matrix(c(672.5979, 110.4452, 169.01), ncol = 3,
+                   dimnames = list(NULL, c("X", "Y", "Z")))
+    res=try(nat::xform(testpts, reg = JRC2018F_FAFB.h5))
+    isFALSE(inherits(res, 'try-error'))
+  }
+  if(!h5regok)
     message("failure in h5reg xform infrastructure!")
   else {
     cat("h5reg xform infrastructure OK!\n")
@@ -92,6 +101,10 @@ dr_h5reg <- function() {
       message("xform test gave incorrect result")
       cat(check,"\n")
     } else cat("xform test gave correct results")
+  }
+  if(!h5regok || !all(javaok)) {
+    message("\nIf you still need help after following installation instuctions, please see:\n",
+            "http://natverse.org/help!")
   }
 }
 
