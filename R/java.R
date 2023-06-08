@@ -9,7 +9,14 @@ saalfeld_jinit <- memoise::memoise(function(pid=Sys.getpid()) {
     stop("Unable to intialise the JVM")
   else if(res>0)
     warning("Only partially successful intialising JVM. See ?jinit for details")
-  jarfile <- system.file("java/transform-helpers-0.0.1-shaded.jar", package = 'nat.h5reg')
+  javadir=system.file("java", package = 'nat.h5reg')
+  jarfile=dir(javadir, pattern = 'transform-helpers.*\\.jar', full.names = T)
+  if(length(jarfile)==0)
+    stop("Unable to find transform-helpers jar file for h5reg!")
+  if(length(jarfile)>1) {
+    jarfile=sort(jarfile, decreasing = T)[1]
+    message("Choosing: ", basename(jarfile), " for h5reg transforms")
+  }
   rJava::.jaddClassPath(jarfile)
 })
 
