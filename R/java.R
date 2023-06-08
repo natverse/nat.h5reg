@@ -9,16 +9,21 @@ saalfeld_jinit <- memoise::memoise(function(pid=Sys.getpid()) {
     stop("Unable to intialise the JVM")
   else if(res>0)
     warning("Only partially successful intialising JVM. See ?jinit for details")
+  rJava::.jaddClassPath(transform_jar_file())
+})
+
+transform_jar_file <- function(message=TRUE) {
   javadir=system.file("java", package = 'nat.h5reg')
   jarfile=dir(javadir, pattern = 'transform-helpers.*\\.jar', full.names = T)
   if(length(jarfile)==0)
     stop("Unable to find transform-helpers jar file for h5reg!")
   if(length(jarfile)>1) {
     jarfile=sort(jarfile, decreasing = T)[1]
-    message("Choosing: ", basename(jarfile), " for h5reg transforms")
+    if(message)
+      message("Choosing: ", basename(jarfile), " for h5reg transforms")
   }
-  rJava::.jaddClassPath(jarfile)
-})
+  jarfile
+}
 
 java_install_instructions <- function() {
   paste0(
@@ -86,6 +91,8 @@ dr_h5reg <- function() {
     message("No java infrastructure available so h5reg cannot be used/tested!")
     FALSE
   } else {
+    cat("Using transform helper:", basename(transform_jar_file(message = F)), "\n")
+
     reg = system.file('samples/JRC2018F_FAFB_extrasmall.h5', package = 'nat.h5reg')
     JRC2018F_FAFB.h5=h5reg(reg, swap=FALSE)
     JRC2018F_FAFB.h5.i=h5reg(reg, swap=TRUE)
