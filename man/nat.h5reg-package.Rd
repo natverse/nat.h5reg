@@ -6,9 +6,7 @@
 \alias{nat.h5reg-package}
 \title{nat.h5reg: Neuroanatomy Toolbox Support for Saalfeld/Bogovic HDF5 Registration Format}
 \description{
-Enables the Neuroanatomy Toolbox (nat) suite to carry out 3D
-    coordinate transformation defined by points encoded in the HDF5
-    registration format defined by Stephan Saalfeld and John Bogovic.
+Enables the Neuroanatomy Toolbox (nat) suite to carry out 3D coordinate transformation defined by points encoded in the HDF5 registration format defined by Stephan Saalfeld and John Bogovic.
 }
 \section{h5 registration format}{
  The
