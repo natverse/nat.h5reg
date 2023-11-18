@@ -1,9 +1,9 @@
 <!-- badges: start -->
-[![natverse](https://img.shields.io/badge/natverse-Part%20of%20the%20natverse-a241b6)](https://natverse.github.io)
+[![natverse](https://img.shields.io/badge/natverse-Part%20of%20the%20natverse-a241b6)](https://natverse.org)
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![Travis build status](https://travis-ci.org/natverse/nat.h5reg.svg?branch=master)](https://travis-ci.org/natverse/nat.h5reg)
 [![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://natverse.github.io/nat.h5reg/reference/)
 <img src="man/figures/logo.svg" align="right" height="139" /> 
+[![R-CMD-check](https://github.com/natverse/nat.h5reg/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/natverse/nat.h5reg/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 # nat.h5reg
