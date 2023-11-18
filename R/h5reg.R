@@ -118,6 +118,7 @@ read.h5reg.info <- function(x, ...) {
   sapply(h5_listing$name[good_rows], function(n) myinfo2(h5[[n]]), simplify = F)
 }
 
+#' @importFrom memoise memoise
 read.h5reg.info.memo <- memoise::memoise(read.h5reg.info)
 
 
