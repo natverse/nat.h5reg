@@ -1,6 +1,7 @@
 # nat.h5reg 0.4.3
 
 * fix h5 registrations on MacOS ARM machines (#10)
+* set up github actions (check, coverage, pkgdown)
 
 # nat.h5reg 0.4.2
 
