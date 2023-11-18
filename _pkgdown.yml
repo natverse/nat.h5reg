@@ -1,3 +1,7 @@
+url: https://natverse.org/nat.h5reg/
+template:
+  bootstrap: 5
+
 navbar:
   structure:
     left:
