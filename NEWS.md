@@ -1,3 +1,7 @@
+# nat.h5reg 0.4.3
+
+* fix h5 registrations on MacOS ARM machines (#10)
+
 # nat.h5reg 0.4.2
 
 * try to provide more information about java errors in `saalfeld_xform()`
